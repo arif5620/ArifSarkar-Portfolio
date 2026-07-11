@@ -7,7 +7,7 @@ import { FaArrowRight, FaClock, FaCalendarAlt } from "react-icons/fa";
 const featured = {
   title: "10 Best AI Tools Every Digital Marketer Should Use in 2026",
   category: "AI Tools",
-  image: "/blog/blog.jpg",
+  image: "/Blog/blog.jpg",
   date: "Coming Soon",
   read: "8 min read",
   description:
