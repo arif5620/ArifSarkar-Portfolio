@@ -96,13 +96,11 @@ export default function Blog() {
 
             <div className="relative overflow-hidden">
 
-              <Image
-                src={featured.image}
-                alt={featured.title}
-                width={900}
-                height={600}
-                className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full"
-              />
+              <img
+  src={urlFor(blog.mainImage).url()}
+  alt={blog.title}
+  className="h-60 w-full object-cover transition duration-700 group-hover:scale-105"
+/>
 
               <div className="absolute left-5 top-5">
 
