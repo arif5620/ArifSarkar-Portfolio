@@ -107,7 +107,7 @@ export default function Blog() {
               <div className="absolute left-5 top-5">
 
                 <span className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white">
-                  🔥 Featured
+                  Featured
                 </span>
 
               </div>
