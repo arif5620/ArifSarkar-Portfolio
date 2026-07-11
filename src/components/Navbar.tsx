@@ -9,7 +9,7 @@ const navLinks = [
   { name: "Services", href: "#services" },
   { name: "Portfolio", href: "#projects" },
   { name: "Meta Ads", href: "#facebook-ads" },
-  { name: "Blog", href: "#blog" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "#contact" },
 ];
 
