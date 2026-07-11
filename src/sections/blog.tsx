@@ -18,7 +18,7 @@ const blogs = [
   {
     title: "5 Meta Ads Strategies That Generate High Quality Leads",
     category: "Meta Ads",
-    image: "/blog/meta-ads.jpg",
+    image: "/Blog/meta-ads.jpg",
     date: "Coming Soon",
     read: "6 min read",
     description:
@@ -27,7 +27,7 @@ const blogs = [
   {
     title: "How to Build a Fast & Modern WordPress Website",
     category: "WordPress",
-    image: "/blog/wordpress.jpg",
+    image: "/Blog/wordpress.jpg",
     date: "Coming Soon",
     read: "7 min read",
     description:
@@ -36,7 +36,7 @@ const blogs = [
   {
     title: "Complete SEO Checklist for Beginners",
     category: "SEO",
-    image: "/blog/seo.jpg",
+    image: "/Blog/seo.jpg",
     date: "Coming Soon",
     read: "9 min read",
     description:
