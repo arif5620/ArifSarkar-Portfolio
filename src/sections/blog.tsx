@@ -96,13 +96,11 @@ export default function Blog() {
 
             <div className="relative overflow-hidden">
 
-              <Image
-                src={featured.image}
-                alt={featured.title}
-                width={900}
-                height={600}
-                className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full"
-              />
+              <img
+  src={featured.image}
+  alt={featured.title}
+  className="h-72 w-full object-cover lg:h-full"
+/>
 
               <div className="absolute left-5 top-5">
 
@@ -176,13 +174,11 @@ export default function Blog() {
             >
               {/* Thumbnail */}
               <div className="overflow-hidden">
-                <Image
-                  src={blog.image}
-                  alt={blog.title}
-                  width={600}
-                  height={400}
-                  className="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                <img
+  src={blog.image}
+  alt={blog.title}
+  className="h-56 w-full object-cover"
+/>
               </div>
 
               {/* Content */}
