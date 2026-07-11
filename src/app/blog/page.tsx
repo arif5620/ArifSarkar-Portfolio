@@ -105,13 +105,11 @@ export default async function BlogPage() {
               className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition duration-300 hover:-translate-y-2 hover:border-blue-500 hover:shadow-[0_0_35px_rgba(59,130,246,.2)]"
             >
 
-              <Image
-                src={urlFor(blog.mainImage).url()}
-                alt={blog.title}
-                width={700}
-                height={420}
-                className="h-60 w-full object-cover transition duration-700 group-hover:scale-105"
-              />
+              <img
+  src={urlFor(blog.mainImage).url()}
+  alt={blog.title}
+  className="h-60 w-full object-cover transition duration-700 group-hover:scale-105"
+/>
 
               <div className="p-6">
 
