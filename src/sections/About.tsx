@@ -117,23 +117,22 @@ export default function About() {
             <div className="relative z-10 w-full overflow-hidden rounded-2xl">
 
               <video
-                src="/Videos/video.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                className="
-                  h-[250px]
-                  w-full
-                  rounded-2xl
-                  object-cover
-                  sm:h-[280px]
-                  lg:h-[340px]
-                "
-              >
-                Your browser does not support the video tag.
-              </video>
+  src="/videos/video.mp4"
+  autoPlay
+  loop
+  playsInline
+  controls
+  className="
+    h-[250px]
+    w-full
+    rounded-2xl
+    object-cover
+    sm:h-[280px]
+    lg:h-[340px]
+  "
+>
+  Your browser does not support the video tag.
+</video>
 
             </div>
 
