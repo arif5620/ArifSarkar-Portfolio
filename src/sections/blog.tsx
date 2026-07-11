@@ -38,6 +38,7 @@ export default function Blog() {
     const loadPosts = async () => {
       try {
         const data = await client.fetch<BlogPost[]>(query);
+        console.log("BLOG POSTS:", data);
         setPosts(data);
       } catch (error) {
         console.error("Failed to load blog posts:", error);
