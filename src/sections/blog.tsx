@@ -53,12 +53,16 @@ export default function Blog() {
   const blogs = posts.slice(1, 4);
 
   if (loading) {
-    return null;
-  }
+  return <div className="py-20 text-center text-white">Loading Blog...</div>;
+}
 
-  if (!featured) {
-    return null;
-  }
+if (!featured) {
+  return (
+    <div className="py-20 text-center text-red-500">
+      No blog posts found
+    </div>
+  );
+}
 
   return (
     <section
