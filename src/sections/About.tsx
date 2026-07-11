@@ -115,14 +115,21 @@ export default function About() {
             <div className="absolute -left-10 top-0 h-44 w-44 rounded-full bg-cyan-500/20 blur-[80px]" />
 
             <div className="relative z-10 w-full overflow-hidden rounded-2xl">
-<p className="text-red-500 text-center">VIDEO TEST</p>
-              <video
-  key="video-v2"
+<video
   src="/videos/video.mp4"
   controls
-  preload="auto"
-  className="w-full h-[340px] rounded-2xl bg-black"
-/>
+  preload="metadata"
+  className="
+    h-[250px]
+    w-full
+    rounded-2xl
+    object-cover
+    sm:h-[280px]
+    lg:h-[340px]
+  "
+>
+  Your browser does not support the video tag.
+</video>
 
             </div>
 
