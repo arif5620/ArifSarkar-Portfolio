@@ -117,7 +117,7 @@ export default function About() {
             <div className="relative z-10 w-full overflow-hidden rounded-2xl">
 
               <video
-                src="/videos/Intro.mp4"
+                src="/Videos/video.mp4"
                 autoPlay
                 muted
                 loop
