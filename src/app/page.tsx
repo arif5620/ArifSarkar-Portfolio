@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
+import IntroLoader from "@/components/IntroLoader";
 import Hero from "@/sections/Hero";
 import Journey from "@/sections/Journey";
 import About from "@/sections/About";
@@ -25,6 +26,7 @@ export default function Home() {
   return (
     <main className="min-h-[100svh] bg-ink text-fg">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <IntroLoader />
       <ScrollProgress />
       <Navbar />
       <Hero />

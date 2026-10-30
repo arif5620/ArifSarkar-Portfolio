@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 import { FaPhoneAlt, FaWhatsapp, FaSearch, FaCheckCircle } from "react-icons/fa";
 import profile, { waLink } from "@/data/profile";
 import { heroImage } from "@/data/properties";
+
+const City3D = dynamic(() => import("@/components/City3D"), { ssr: false });
 
 const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "Purbachal", "Chattogram — Khulshi", "Chattogram — Nasirabad", "Chattogram — Agrabad", "Cumilla — Kandirpar", "Cumilla — Kotbari"];
 const goals = ["Buy", "Rent", "Sell"] as const;
@@ -17,6 +20,15 @@ const select =
 // The hero is always dark (photo background) in both light and dark mode.
 export default function Hero() {
   const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
+  const [use3D, setUse3D] = useState(false);
+
+  // 3D skyline only where WebGL works and motion isn't reduced; the photo stays as the fallback.
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const gl = document.createElement("canvas").getContext("webgl2");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- capability check needs the browser
+    setUse3D(!reduced && !!gl);
+  }, []);
 
   // Finder has no backend: it opens a prefilled WhatsApp inquiry.
   const onFind = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,8 +48,14 @@ export default function Hero() {
         sizes="100vw"
         className="animate-kenburns object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+      {use3D && (
+        <div className="animate-fade absolute inset-0">
+          <City3D />
+        </div>
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/90 via-black/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-black/45 lg:hidden" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
 
       <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-4 pb-10 pt-32 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:pt-36">
         <div>
