@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
+import IntroLoader from "@/components/IntroLoader";
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Properties from "@/sections/Properties";
@@ -16,6 +17,7 @@ import MobileActionBar from "@/components/MobileActionBar";
 export default function Home() {
   return (
     <main className="min-h-[100svh] bg-black text-white">
+      <IntroLoader />
       <ScrollProgress />
       <Navbar />
       <Hero />

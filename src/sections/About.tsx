@@ -1,6 +1,8 @@
 import Image from "next/image";
 import profile from "@/data/profile";
 import SectionHeading from "@/components/SectionHeading";
+import TiltCard from "@/components/TiltCard";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const points = [
   "Local expertise in Dhaka, Chattogram and Cumilla",
@@ -16,7 +18,7 @@ export default function About() {
         <SectionHeading eyebrow="About Me" title="A Realtor you can trust" />
 
         <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
-          <div className="card-glow relative mx-auto w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(201,164,76,.35)]">
+          <TiltCard className="card-glow relative mx-auto w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(201,164,76,.35)]">
             <Image
               src="/profile.png"
               alt={`${profile.name}, Realtor in Dhaka`}
@@ -24,9 +26,9 @@ export default function About() {
               height={700}
               className="h-auto w-full bg-zinc-900 object-cover"
             />
-          </div>
+          </TiltCard>
 
-          <div>
+          <AnimatedSection delay={0.2}>
             <h3 className="text-3xl font-semibold sm:text-4xl">
               Hello, I&apos;m <span className="text-gold">{profile.name}</span>
             </h3>
@@ -47,7 +49,7 @@ export default function About() {
                 </li>
               ))}
             </ul>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

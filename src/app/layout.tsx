@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import profile from "@/data/profile";
+import CursorGlow from "@/components/CursorGlow";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <CursorGlow />
       </body>
     </html>
   );

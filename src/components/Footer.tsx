@@ -11,7 +11,7 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#050505] pb-24 md:pb-0">
+    <footer className="border-t border-white/10 overflow-hidden bg-[#050505] pb-24 md:pb-0">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-14 text-center">
         <h2 className="text-3xl font-semibold tracking-[3px]">
           ARIF<span className="text-gold">.</span>
@@ -41,6 +41,22 @@ export default function Footer() {
           © {new Date().getFullYear()} {profile.name} · Real Estate Consultant & Realtor · {profile.location}
         </p>
       </div>
+
+      {/* Giant signature with a gold light sweeping across */}
+      <p
+        aria-hidden
+        className="select-none overflow-hidden text-center font-display text-[28vw] font-bold leading-[0.8] tracking-tight text-transparent md:text-[22vw]"
+        style={{
+          WebkitTextStroke: "1px rgba(201,164,76,.35)",
+          backgroundImage: "linear-gradient(110deg, transparent 35%, rgba(248,231,176,.55) 50%, transparent 65%)",
+          backgroundSize: "200% 100%",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          animation: "sweep 5s linear infinite",
+        }}
+      >
+        ARIF
+      </p>
     </footer>
   );
 }
