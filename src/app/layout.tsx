@@ -11,13 +11,13 @@ const cormorant = Cormorant_Garamond({
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const title = "Arif Sarkar | Real Estate Consultant & Realtor in Dhaka";
+const title = "Arif | Real Estate Consultant & Realtor in Dhaka";
 const description =
-  "Buy, sell or rent apartments, houses, land and commercial property in Dhaka, Bangladesh with Arif Sarkar — a trusted Realtor in Gulshan, Banani, Bashundhara, Uttara and Dhanmondi.";
+  "Buy, sell or rent apartments, houses, land and commercial property in Dhaka, Bangladesh with Arif — a trusted Realtor in Gulshan, Banani, Bashundhara, Uttara and Dhanmondi.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.website),
-  title: { default: title, template: "%s | Arif Sarkar, Realtor in Dhaka" },
+  title: { default: title, template: "%s | Arif, Realtor in Dhaka" },
   description,
   keywords: [
     "real estate Dhaka",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: profile.website,
-    siteName: "Arif Sarkar — Real Estate",
+    siteName: "Arif — Real Estate",
     locale: "en_BD",
     type: "website",
     images: ["/profile.png"],

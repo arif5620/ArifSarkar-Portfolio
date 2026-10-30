@@ -31,7 +31,7 @@ export default function Navbar() {
         }`}
       >
         <a href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-white sm:text-2xl">
-          ARIF <span className="text-gold">SARKAR</span>
+          ARIF<span className="text-gold">.</span>
         </a>
 
         <div className="hidden items-center gap-8 text-sm md:flex">

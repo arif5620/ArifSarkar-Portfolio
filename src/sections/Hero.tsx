@@ -1,44 +1,67 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { FaPhoneAlt, FaWhatsapp, FaShieldAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp, FaSearch, FaCheckCircle } from "react-icons/fa";
 import profile, { waLink } from "@/data/profile";
-
-const paths = [
-  { label: "Buy", text: "Find your home or investment", href: "#properties" },
-  { label: "Sell", text: "Get the right price, faster", href: "#contact" },
-  { label: "Rent", text: "Quality homes and offices", href: "#properties" },
-];
+import { heroImage } from "@/data/properties";
 
 const areas = ["Gulshan", "Banani", "Baridhara", "Bashundhara R/A", "Uttara", "Dhanmondi", "Mohammadpur", "Mirpur", "Purbachal", "Motijheel"];
+const goals = ["Buy", "Rent", "Sell"] as const;
+const kinds = ["Apartment", "Duplex / House", "Land / Plot", "Commercial"];
 
 const rise = (delay: number) => ({
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] as const },
+  transition: { duration: 1, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
-export default function Hero() {
-  return (
-    <section id="home" className="relative overflow-hidden bg-black pt-32 lg:pt-40">
-      <div className="bg-grid absolute inset-0" />
-      <div className="animate-drift absolute -right-40 -top-20 h-[34rem] w-[34rem] rounded-full bg-gold/20 blur-[170px]" />
-      <div className="animate-drift absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-amber-700/15 blur-[150px] [animation-delay:-7s]" />
+const select =
+  "w-full appearance-none rounded-xl border border-white/10 bg-black/50 px-4 py-3.5 text-sm text-white outline-none transition focus:border-gold";
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.15fr_0.85fr]">
+export default function Hero() {
+  const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
+
+  // Finder has no backend: it opens a prefilled WhatsApp inquiry.
+  const onFind = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const text = `Hello Arif, I want to ${goal.toLowerCase()} a ${f.get("kind")} in ${f.get("area")}. Budget: ${f.get("budget") || "flexible"}.`;
+    window.open(waLink(text), "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <section id="home" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black">
+      <motion.div
+        initial={{ scale: 1.25 }}
+        animate={{ scale: 1.05 }}
+        transition={{ duration: 8, ease: "easeOut" }}
+        className="absolute inset-0"
+      >
+        <Image src={heroImage} alt="Luxury home in Dhaka at dusk" fill priority sizes="100vw" className="object-cover" />
+      </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
+      <div className="bg-grid absolute inset-0 opacity-60" />
+      <div className="animate-drift absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-gold/20 blur-[160px]" />
+
+      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-4 pb-10 pt-32 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:pt-36">
         <div>
-          <motion.p {...rise(0)} className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[4px] text-gold">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" /> Dhaka, Bangladesh
+          <motion.p {...rise(0.2)} className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[4px] text-gold">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" /> {profile.title}
           </motion.p>
 
-          <motion.h1 {...rise(0.15)} className="mt-6 text-5xl font-semibold leading-[1.02] sm:text-7xl lg:text-8xl">
-            Your trusted <br />
-            <span className="text-shimmer">Realtor</span> in Dhaka
+          <motion.p {...rise(0.35)} className="mt-8 font-display text-2xl text-zinc-300 sm:text-3xl">
+            Hello, I&apos;m <span className="text-shimmer font-semibold">{profile.name}</span> —
+          </motion.p>
+
+          <motion.h1 {...rise(0.5)} className="mt-2 text-5xl font-semibold leading-[1] sm:text-7xl xl:text-8xl">
+            Your Realtor for <span className="text-shimmer italic">Dhaka&apos;s</span> finest homes
           </motion.h1>
 
-          <motion.div {...rise(0.3)} className="mt-6 h-9 text-2xl text-zinc-200 sm:text-3xl">
+          <motion.div {...rise(0.65)} className="mt-6 h-9 text-xl text-zinc-200 sm:text-2xl">
             <TypeAnimation
               sequence={["Buy your dream home.", 2200, "Sell at the right price.", 2200, "Rent with confidence.", 2200]}
               repeat={Infinity}
@@ -46,83 +69,88 @@ export default function Hero() {
             />
           </motion.div>
 
-          <motion.p {...rise(0.45)} className="mt-6 max-w-xl text-lg leading-8 text-zinc-400">
-            I&apos;m {profile.name}, a {profile.title.toLowerCase()}. Honest advice, verified properties and
-            personal attention — from first call to final handover.
-          </motion.p>
-
-          <motion.div {...rise(0.6)} className="mt-9 flex flex-wrap gap-4">
+          <motion.div {...rise(0.8)} className="mt-8 flex flex-wrap gap-4">
             <a
               href="#properties"
-              className="rounded-full bg-gold px-8 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(201,164,76,.45)] transition hover:scale-105 hover:bg-gold-soft"
+              className="rounded-full bg-gold px-8 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(201,164,76,.5)] transition hover:scale-105 hover:bg-gold-soft"
             >
-              View Properties
-            </a>
-            <a
-              href={waLink("Hello Arif, I'm interested in a property in Dhaka.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold text-gold transition hover:border-gold/60"
-            >
-              <FaWhatsapp /> WhatsApp
+              Explore Properties
             </a>
             <a
               href={`tel:${profile.phone}`}
               className="glass flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold transition hover:border-gold/60 hover:text-gold"
             >
-              <FaPhoneAlt size={14} /> Call Me
+              <FaPhoneAlt size={14} /> {profile.phone}
             </a>
           </motion.div>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-md"
+          initial={{ opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="glass card-glow animate-float hidden rounded-[2rem] p-6 lg:block"
         >
-          <div className="absolute inset-0 animate-[spin_12s_linear_infinite] rounded-full bg-[conic-gradient(from_0deg,transparent,#c9a44c,transparent_40%,#f8e7b0,transparent_75%)] opacity-80" />
-          <div className="absolute inset-[3px] overflow-hidden rounded-full bg-zinc-950">
-            <Image
-              src="/profile.png"
-              alt="Arif Sarkar, Real Estate Consultant and Realtor in Dhaka"
-              fill
-              priority
-              sizes="(min-width: 640px) 28rem, 22rem"
-              className="object-cover"
-            />
+          <div className="relative mx-auto h-40 w-40">
+            <div className="absolute inset-0 animate-[spin_10s_linear_infinite] rounded-full bg-[conic-gradient(from_0deg,transparent,#c9a44c,transparent_45%,#f8e7b0,transparent_80%)]" />
+            <div className="absolute inset-[3px] overflow-hidden rounded-full bg-zinc-900">
+              <Image src="/profile.png" alt={`${profile.name}, Realtor in Dhaka`} fill sizes="160px" className="object-cover" />
+            </div>
           </div>
-
-          <div className="glass animate-float absolute left-0 top-10 flex items-center gap-3 rounded-2xl px-4 py-3 sm:-left-10">
-            <FaShieldAlt className="text-gold" />
-            <span className="text-sm font-medium">Verified listings</span>
-          </div>
-          <div className="glass animate-float absolute -right-2 bottom-12 flex items-center gap-3 rounded-2xl px-4 py-3 [animation-delay:-3s] sm:-right-8">
-            <FaMapMarkerAlt className="text-gold" />
-            <span className="text-sm font-medium">All over Dhaka</span>
-          </div>
+          <p className="mt-5 text-center font-display text-4xl font-semibold">{profile.name}</p>
+          <p className="text-center text-xs uppercase tracking-[3px] text-gold">Realtor · Dhaka</p>
+          <ul className="mt-5 space-y-2 text-sm text-zinc-300">
+            {["Verified properties", "Honest, transparent pricing", "Reply within hours"].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <FaCheckCircle className="text-gold" /> {t}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={waLink("Hello Arif, I'd like to discuss a property.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 flex items-center justify-center gap-2 rounded-full bg-green-500 py-3 font-semibold text-white transition hover:bg-green-600"
+          >
+            <FaWhatsapp size={18} /> Chat on WhatsApp
+          </a>
         </motion.div>
       </div>
 
-      <div className="relative mx-auto mt-20 grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-3">
-        {paths.map((p, i) => (
-          <motion.a
-            key={p.label}
-            href={p.href}
-            {...rise(0.7 + i * 0.12)}
-            whileHover={{ y: -6 }}
-            className="glass card-glow group rounded-3xl p-7"
-          >
-            <span className="text-xs tracking-[4px] text-zinc-500">0{i + 1}</span>
-            <h3 className="mt-2 text-4xl font-semibold transition group-hover:text-gold">{p.label}</h3>
-            <p className="mt-1 text-sm text-zinc-400">
-              {p.text} <span className="inline-block transition group-hover:translate-x-1">→</span>
-            </p>
-          </motion.a>
-        ))}
-      </div>
+      <motion.form
+        {...rise(1)}
+        onSubmit={onFind}
+        className="glass card-glow relative mx-auto mb-10 w-[calc(100%-2rem)] max-w-5xl rounded-3xl p-4 sm:p-5"
+      >
+        <div className="mb-4 flex gap-2">
+          {goals.map((g) => (
+            <button
+              key={g}
+              type="button"
+              onClick={() => setGoal(g)}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
+                goal === g ? "bg-gold text-black" : "text-zinc-300 hover:text-gold"
+              }`}
+            >
+              {g}
+            </button>
+          ))}
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto]">
+          <select name="area" aria-label="Area" className={select} defaultValue="Gulshan">
+            {areas.map((a) => <option key={a}>{a}</option>)}
+          </select>
+          <select name="kind" aria-label="Property type" className={select}>
+            {kinds.map((k) => <option key={k}>{k}</option>)}
+          </select>
+          <input name="budget" aria-label="Budget" placeholder="Budget (e.g. ৳ 1.5 Crore)" className={select} />
+          <button type="submit" className="flex items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 font-semibold text-black transition hover:bg-gold-soft">
+            <FaSearch /> Find
+          </button>
+        </div>
+      </motion.form>
 
-      <div className="relative mt-20 overflow-hidden border-y border-gold/15 py-5">
+      <div className="relative overflow-hidden border-y border-gold/15 bg-black/60 py-5 backdrop-blur">
         <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">
           {[...areas, ...areas].map((a, i) => (
             <span key={i} className="flex items-center gap-12 font-display text-2xl text-zinc-500">

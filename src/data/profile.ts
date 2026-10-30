@@ -1,8 +1,7 @@
 const phone = "+8801828205620";
 
 const profile = {
-  name: "Arif Sarkar",
-  fullName: "Arif Sarkar",
+  name: "Arif",
 
   title: "Real Estate Consultant & Realtor",
 

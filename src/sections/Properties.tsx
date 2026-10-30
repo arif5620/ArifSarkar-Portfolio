@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FaBed, FaBath, FaRulerCombined, FaWhatsapp } from "react-icons/fa";
-import { MdApartment } from "react-icons/md";
+import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
 import { properties } from "@/data/properties";
 import { waLink } from "@/data/profile";
@@ -44,19 +44,24 @@ export default function Properties() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((p) => (
             <article key={p.id} className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:-translate-y-2 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
-              <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-900 via-black to-zinc-900">
-                <div className="bg-grid absolute inset-0" />
-                <div className="absolute h-32 w-32 rounded-full bg-gold/20 blur-3xl transition duration-700 group-hover:scale-150" />
-                <MdApartment size={72} className="relative text-gold/70 transition duration-700 group-hover:scale-110" />
+              <div className="relative h-60 overflow-hidden bg-zinc-900">
+                <Image
+                  src={p.image}
+                  alt={`${p.title} in ${p.area}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
                   {p.type === "sale" ? "For Sale" : "For Rent"}
                 </span>
+                <p className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow">{p.price}</p>
               </div>
               <div className="p-6">
                 <p className="text-xs uppercase tracking-[3px] text-zinc-500">{p.kind}</p>
                 <h3 className="mt-1 text-2xl font-semibold">{p.title}</h3>
                 <p className="mt-1 text-sm text-zinc-400">{p.area}</p>
-                <p className="mt-4 text-xl font-semibold text-gold">{p.price}</p>
 
                 <div className="mt-4 flex gap-5 border-t border-white/10 pt-4 text-sm text-zinc-400">
                   {p.beds > 0 && (

@@ -14,7 +14,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-[#050505]">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-14 text-center">
         <h2 className="text-3xl font-semibold tracking-[3px]">
-          ARIF <span className="text-gold">SARKAR</span>
+          ARIF<span className="text-gold">.</span>
         </h2>
         <p className="mt-2 text-sm uppercase tracking-[4px] text-gold">{profile.title}</p>
         <p className="mt-5 max-w-xl leading-8 text-zinc-400">
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-10 border-t border-white/10 pt-6 text-sm text-zinc-500">
-          © {new Date().getFullYear()} {profile.fullName} · Real Estate Consultant & Realtor · {profile.location}
+          © {new Date().getFullYear()} {profile.name} · Real Estate Consultant & Realtor · {profile.location}
         </p>
       </div>
     </footer>
