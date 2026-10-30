@@ -8,6 +8,13 @@ const reasons = [
   { icon: <FaComments />, title: "Clear communication", text: "Quick replies on phone and WhatsApp, in Bangla or English." },
 ];
 
+const steps = [
+  { title: "Consultation", text: "We talk about your needs, budget and preferred areas." },
+  { title: "Shortlist & Visits", text: "I shortlist verified options and arrange site visits." },
+  { title: "Negotiation", text: "I negotiate the best price and terms on your behalf." },
+  { title: "Handover", text: "Documents, registration support and a smooth handover." },
+];
+
 export default function WhyChoose() {
   return (
     <section id="why-me" className="bg-black py-20 lg:py-28">
@@ -16,12 +23,26 @@ export default function WhyChoose() {
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((r) => (
-            <div key={r.title} className="rounded-3xl border border-white/10 p-7 text-center">
+            <div key={r.title} className="glass card-glow rounded-3xl p-7 text-center transition duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(201,164,76,.35)]">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 text-xl text-gold">
                 {r.icon}
               </div>
               <h3 className="mt-5 text-2xl font-semibold">{r.title}</h3>
               <p className="mt-3 leading-7 text-zinc-400">{r.text}</p>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="mt-24 text-center text-3xl font-semibold sm:text-4xl">How I work</h3>
+        <div className="relative mt-12 grid gap-10 md:grid-cols-4">
+          <div className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent md:block" />
+          {steps.map((s, i) => (
+            <div key={s.title} className="relative text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold font-semibold text-black shadow-[0_0_30px_rgba(201,164,76,.6)]">
+                {i + 1}
+              </div>
+              <h4 className="mt-5 font-display text-2xl font-semibold">{s.title}</h4>
+              <p className="mt-2 text-sm leading-6 text-zinc-400">{s.text}</p>
             </div>
           ))}
         </div>

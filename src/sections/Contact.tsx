@@ -5,7 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 
 const field =
-  "w-full rounded-2xl border border-white/10 bg-zinc-900 px-5 py-4 text-white outline-none transition focus:border-gold";
+  "w-full rounded-2xl border border-white/10 bg-black/60 px-5 py-4 text-white outline-none transition focus:border-gold focus:shadow-[0_0_25px_rgba(201,164,76,.25)]";
 
 const info = [
   { icon: <FaPhoneAlt />, title: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
@@ -43,7 +43,7 @@ export default function Contact() {
                   </div>
                 </>
               );
-              const cls = "flex items-center gap-5 rounded-3xl border border-white/10 p-5";
+              const cls = "glass flex items-center gap-5 rounded-3xl p-5";
               return i.href ? (
                 <a key={i.title} href={i.href} className={`${cls} transition hover:border-gold/50`}>{body}</a>
               ) : (
@@ -61,7 +61,7 @@ export default function Contact() {
             </a>
           </div>
 
-          <form onSubmit={onSubmit} className="space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <form onSubmit={onSubmit} className="glass card-glow space-y-5 rounded-3xl p-6 sm:p-8">
             <input name="name" required placeholder="Your name" className={field} />
             <input name="phone" required type="tel" placeholder="Phone / WhatsApp number" className={field} />
             <select name="interest" className={field} defaultValue="buy a property">

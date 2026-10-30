@@ -24,7 +24,7 @@ export default function Services() {
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s) => (
-            <div key={s.title} className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 transition hover:border-gold/50">
+            <div key={s.title} className="glass card-glow rounded-3xl p-7 transition duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(201,164,76,.35)]">
               <div className="text-3xl text-gold">{s.icon}</div>
               <h3 className="mt-5 text-2xl font-semibold">{s.title}</h3>
               <p className="mt-3 leading-7 text-zinc-400">{s.description}</p>

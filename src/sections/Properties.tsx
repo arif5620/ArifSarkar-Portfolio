@@ -43,9 +43,11 @@ export default function Properties() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((p) => (
-            <article key={p.id} className="overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
-              <div className="relative flex h-48 items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950">
-                <MdApartment size={64} className="text-gold/40" />
+            <article key={p.id} className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:-translate-y-2 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
+              <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-900 via-black to-zinc-900">
+                <div className="bg-grid absolute inset-0" />
+                <div className="absolute h-32 w-32 rounded-full bg-gold/20 blur-3xl transition duration-700 group-hover:scale-150" />
+                <MdApartment size={72} className="relative text-gold/70 transition duration-700 group-hover:scale-110" />
                 <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
                   {p.type === "sale" ? "For Sale" : "For Rent"}
                 </span>

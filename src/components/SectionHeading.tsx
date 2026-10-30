@@ -1,3 +1,5 @@
+import AnimatedSection from "@/components/AnimatedSection";
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -8,11 +10,13 @@ export default function SectionHeading({
   text?: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
-      <p className="text-xs uppercase tracking-[5px] text-gold">{eyebrow}</p>
-      <h2 className="mt-4 text-4xl font-semibold sm:text-5xl">{title}</h2>
-      <div className="mx-auto mt-6 h-px w-16 bg-gold" />
+    <AnimatedSection className="mx-auto max-w-3xl text-center">
+      <p className="glass inline-block rounded-full px-4 py-1.5 text-xs uppercase tracking-[5px] text-gold">{eyebrow}</p>
+      <h2 className="mt-5 bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-4xl font-semibold text-transparent sm:text-6xl">
+        {title}
+      </h2>
+      <div className="mx-auto mt-6 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
       {text && <p className="mt-6 leading-8 text-zinc-400">{text}</p>}
-    </div>
+    </AnimatedSection>
   );
 }

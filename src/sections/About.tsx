@@ -16,7 +16,7 @@ export default function About() {
         <SectionHeading eyebrow="About Me" title="A Realtor you can trust" />
 
         <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
-          <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-gold/20">
+          <div className="card-glow relative mx-auto w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(201,164,76,.35)]">
             <Image
               src="/profile.png"
               alt={`${profile.name}, Realtor in Dhaka`}
