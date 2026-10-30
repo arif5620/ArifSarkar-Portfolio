@@ -6,7 +6,7 @@ const profile = {
   title: "Real Estate Consultant & Realtor",
 
   description:
-    "Trusted Realtor in Dhaka helping buyers, sellers and tenants find, sell and rent apartments, houses, land and commercial space with honesty and clear guidance.",
+    "Trusted Realtor in Dhaka, Chattogram and Cumilla helping buyers, sellers and tenants find, sell and rent apartments, houses, land and commercial space with honesty and clear guidance.",
 
   email: "contact@arifsarkar.com",
 
@@ -14,7 +14,7 @@ const profile = {
 
   whatsapp: "https://wa.me/8801828205620",
 
-  location: "Dhaka, Bangladesh",
+  location: "Dhaka · Chattogram · Cumilla",
 
   website: "https://arifsarkar.com",
 

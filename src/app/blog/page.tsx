@@ -1,176 +1,46 @@
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
-import Link from "next/link";
-import { Clock, ArrowRight, Search } from "lucide-react";
+import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileActionBar from "@/components/MobileActionBar";
+import ScrollProgress from "@/components/ScrollProgress";
+import PostGrid from "@/components/PostGrid";
+import { getPosts } from "@/data/posts";
 
-const categories = [
-  "All",
-  "Buying",
-  "Selling",
-  "Renting",
-  "Market",
-];
-
-const query = `*[_type=="post"] | order(publishedAt desc){
-  _id,
-  title,
-  slug,
-  publishedAt,
-  mainImage,
-  "category": categories[0]->title
-}`;
+export const metadata: Metadata = {
+  title: "Real Estate Insights",
+  description: "Guides on buying, selling, renting and investing in property in Dhaka, Chattogram and Cumilla.",
+  alternates: { canonical: "/blog" },
+};
 
 export default async function BlogPage() {
-
-  const blogs = await client.fetch(query);
+  const posts = await getPosts();
 
   return (
-    <section className="min-h-screen bg-[#09090B] py-20 text-white">
+    <main className="min-h-screen bg-black text-white">
+      <ScrollProgress />
+      <Navbar />
+      <section className="relative overflow-hidden pb-24 pt-36">
+        <div className="bg-grid absolute inset-0" />
+        <div className="animate-drift absolute -right-40 -top-20 h-[30rem] w-[30rem] rounded-full bg-gold/15 blur-[160px]" />
 
-      <div className="mx-auto max-w-7xl px-6">
-
-        {/* Hero */}
-
-        <div className="text-center">
-
-          <span className="rounded-full border border-gold/20 bg-gold/10 px-5 py-2 text-sm font-semibold uppercase tracking-[3px] text-gold">
-            Blog
-          </span>
-
-          <h1 className="mt-6 text-5xl font-black">
-            Latest Articles &
-            <span className="text-gold">
-              {" "}Insights
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-3xl leading-8 text-gray-400">
-            Practical guides on buying, selling and
-            renting property in Dhaka.
-          </p>
-
-        </div>
-                {/* Search */}
-
-        <div className="mx-auto mt-12 max-w-2xl">
-
-          <div className="relative">
-
-            <Search
-              size={20}
-              className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500"
-            />
-
-            <input
-              type="text"
-              placeholder="Search articles..."
-              className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pl-14 pr-5 text-white outline-none backdrop-blur-xl placeholder:text-gray-500"
-            />
-
-          </div>
-
-        </div>
-
-        {/* Categories */}
-
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-
-          {categories.map((item) => (
-
-            <button
-              key={item}
-              className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
-                item === "All"
-                  ? "border-gold bg-gold text-black"
-                  : "border-white/10 bg-white/5 text-gray-300 hover:border-gold"
-              }`}
-            >
-              {item}
-            </button>
-
-          ))}
-
-        </div>
-
-        {/* Blog Grid */}
-
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-
-          {blogs.map((blog: any) => (
-
-            <Link
-              key={blog._id}
-              href={`/blog/${blog.slug.current}`}
-              className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition duration-300 hover:-translate-y-2 hover:border-gold hover:shadow-[0_0_35px_rgba(201,164,76,.2)]"
-            >
-
-              <img
-  src={urlFor(blog.mainImage).url()}
-  alt={blog.title}
-  className="h-60 w-full object-cover transition duration-700 group-hover:scale-105"
-/>
-
-              <div className="p-6">
-
-                <span className="rounded-full bg-gold/10 px-3 py-1 text-sm font-semibold text-gold">
-                  {blog.category ?? "General"}
-                </span>
-
-                <div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
-
-                  <Clock size={15} />
-
-                  {new Date(blog.publishedAt).toLocaleDateString()}
-
-                </div>
-
-                <h2 className="mt-5 text-2xl font-bold leading-snug transition group-hover:text-gold">
-
-                  {blog.title}
-
-                </h2>
-
-                <div className="mt-6 flex items-center gap-2 font-semibold text-gold group-hover:gap-4 transition-all">
-
-                  Read Article
-
-                  <ArrowRight size={18} />
-
-                </div>
-
-              </div>
-
-            </Link>
-
-          ))}
-
-        </div>
-                {/* Empty State */}
-
-        {blogs.length === 0 && (
-          <div className="mt-20 rounded-3xl border border-dashed border-white/10 p-16 text-center">
-
-            <h2 className="text-3xl font-bold">
-              No Blog Found
-            </h2>
-
-            <p className="mt-5 text-gray-400">
-              Publish your first article from Sanity Studio.
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="text-center">
+            <p className="glass inline-block rounded-full px-4 py-1.5 text-xs uppercase tracking-[5px] text-gold">Insights</p>
+            <h1 className="mt-6 text-5xl font-semibold sm:text-7xl">
+              Real estate, <span className="text-shimmer italic">made simple</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl leading-8 text-zinc-400">
+              Practical guides on buying, selling, renting and investing in Dhaka, Chattogram and Cumilla.
             </p>
-
-            <Link
-              href="/studio"
-              className="mt-8 inline-block rounded-xl bg-gold px-6 py-3 font-semibold transition hover:bg-gold-soft"
-            >
-              Open Studio
-            </Link>
-
           </div>
-        )}
 
-      </div>
-
-    </section>
+          <PostGrid posts={posts} />
+        </div>
+      </section>
+      <Footer />
+      <WhatsAppButton />
+      <MobileActionBar />
+    </main>
   );
 }

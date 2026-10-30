@@ -21,7 +21,7 @@ export default function Properties() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Featured Properties"
-          title="Homes & spaces in Dhaka"
+          title="Featured homes & spaces"
           text="A selection of properties for sale and rent. Ask me for off-market options matching your budget."
         />
 

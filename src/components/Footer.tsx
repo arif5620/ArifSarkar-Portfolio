@@ -11,14 +11,14 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#050505]">
+    <footer className="border-t border-white/10 bg-[#050505] pb-24 md:pb-0">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-14 text-center">
         <h2 className="text-3xl font-semibold tracking-[3px]">
           ARIF<span className="text-gold">.</span>
         </h2>
         <p className="mt-2 text-sm uppercase tracking-[4px] text-gold">{profile.title}</p>
         <p className="mt-5 max-w-xl leading-8 text-zinc-400">
-          Buy, sell and rent property in Dhaka, Bangladesh — with honest advice and personal service from first
+          Buy, sell and rent property in Dhaka, Chattogram and Cumilla — with honest advice and personal service from first
           call to final handover.
         </p>
 

@@ -8,7 +8,7 @@ import { FaPhoneAlt, FaWhatsapp, FaSearch, FaCheckCircle } from "react-icons/fa"
 import profile, { waLink } from "@/data/profile";
 import { heroImage } from "@/data/properties";
 
-const areas = ["Gulshan", "Banani", "Baridhara", "Bashundhara R/A", "Uttara", "Dhanmondi", "Mohammadpur", "Mirpur", "Purbachal", "Motijheel"];
+const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "Purbachal", "Chattogram — Khulshi", "Chattogram — Nasirabad", "Chattogram — Agrabad", "Cumilla — Kandirpar", "Cumilla — Kotbari"];
 const goals = ["Buy", "Rent", "Sell"] as const;
 const kinds = ["Apartment", "Duplex / House", "Land / Plot", "Commercial"];
 
@@ -58,7 +58,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.h1 {...rise(0.5)} className="mt-2 text-5xl font-semibold leading-[1] sm:text-7xl xl:text-8xl">
-            Your Realtor for <span className="text-shimmer italic">Dhaka&apos;s</span> finest homes
+            Your Realtor for <span className="text-shimmer italic">finest homes</span> in Bangladesh
           </motion.h1>
 
           <motion.div {...rise(0.65)} className="mt-6 h-9 text-xl text-zinc-200 sm:text-2xl">
@@ -98,7 +98,7 @@ export default function Hero() {
             </div>
           </div>
           <p className="mt-5 text-center font-display text-4xl font-semibold">{profile.name}</p>
-          <p className="text-center text-xs uppercase tracking-[3px] text-gold">Realtor · Dhaka</p>
+          <p className="text-center text-xs uppercase tracking-[3px] text-gold">Dhaka · Chattogram · Cumilla</p>
           <ul className="mt-5 space-y-2 text-sm text-zinc-300">
             {["Verified properties", "Honest, transparent pricing", "Reply within hours"].map((t) => (
               <li key={t} className="flex items-center gap-2">

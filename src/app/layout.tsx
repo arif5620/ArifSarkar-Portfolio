@@ -11,19 +11,23 @@ const cormorant = Cormorant_Garamond({
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
-const title = "Arif | Real Estate Consultant & Realtor in Dhaka";
+const title = "Arif | Real Estate Consultant & Realtor in Dhaka, Chattogram & Cumilla";
 const description =
-  "Buy, sell or rent apartments, houses, land and commercial property in Dhaka, Bangladesh with Arif — a trusted Realtor in Gulshan, Banani, Bashundhara, Uttara and Dhanmondi.";
+  "Buy, sell or rent apartments, houses, land and commercial property in Dhaka, Chattogram and Cumilla with Arif — a trusted Realtor in Bangladesh.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.website),
-  title: { default: title, template: "%s | Arif, Realtor in Dhaka" },
+  title: { default: title, template: "%s | Arif, Realtor in Bangladesh" },
   description,
   keywords: [
     "real estate Dhaka",
     "Realtor in Dhaka",
     "apartment for sale in Dhaka",
     "flat for rent in Dhaka",
+    "real estate Chattogram",
+    "flat for sale in Chattogram",
+    "property in Cumilla",
+    "land for sale in Cumilla",
     "property consultant Bangladesh",
     "buy apartment Gulshan",
     "Bashundhara flat for sale",
@@ -53,7 +57,7 @@ const jsonLd = {
   telephone: profile.phone,
   email: profile.email,
   address: { "@type": "PostalAddress", addressLocality: "Dhaka", addressCountry: "BD" },
-  areaServed: ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "Mohammadpur", "Dhaka"],
+  areaServed: ["Dhaka", "Chattogram", "Cumilla"],
   sameAs: Object.values(profile.social),
 };
 

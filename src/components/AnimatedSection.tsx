@@ -6,11 +6,13 @@ import { ReactNode } from "react";
 interface Props {
   children: ReactNode;
   className?: string;
+  delay?: number;
 }
 
 export default function AnimatedSection({
   children,
   className = "",
+  delay = 0,
 }: Props) {
   return (
     <motion.div
@@ -20,6 +22,7 @@ export default function AnimatedSection({
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.8,
+        delay,
         ease: "easeOut",
       }}
     >

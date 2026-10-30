@@ -1,16 +1,17 @@
 import { FaKey, FaHome, FaChartLine, FaFileSignature, FaSearchLocation, FaBuilding } from "react-icons/fa";
 import SectionHeading from "@/components/SectionHeading";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const services = [
   { icon: <FaHome />, title: "Buyer Representation", description: "Shortlisting, site visits, negotiation and closing — only properties that fit your needs and budget." },
   { icon: <FaBuilding />, title: "Selling Your Property", description: "Honest pricing advice, professional presentation and marketing to serious buyers." },
   { icon: <FaKey />, title: "Rental & Leasing", description: "Quality homes and offices for tenants, and reliable tenants for landlords." },
-  { icon: <FaChartLine />, title: "Investment Advisory", description: "Guidance on locations, projects and resale or rental potential in Dhaka." },
+  { icon: <FaChartLine />, title: "Investment Advisory", description: "Guidance on locations, projects and resale or rental potential in Dhaka, Chattogram and Cumilla." },
   { icon: <FaFileSignature />, title: "Documentation Support", description: "Help understanding deeds, verification and registration steps with your lawyer." },
-  { icon: <FaSearchLocation />, title: "Market Valuation", description: "A realistic view of what your property is worth in the current Dhaka market." },
+  { icon: <FaSearchLocation />, title: "Market Valuation", description: "A realistic view of what your property is worth in the current market." },
 ];
 
-const areas = ["Gulshan", "Banani", "Baridhara", "Bashundhara R/A", "Uttara", "Dhanmondi", "Mohammadpur", "Mirpur", "Motijheel"];
+const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "Khulshi", "Nasirabad", "Agrabad", "Kandirpar", "Kotbari"];
 
 export default function Services() {
   return (
@@ -23,17 +24,17 @@ export default function Services() {
         />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <div key={s.title} className="glass card-glow rounded-3xl p-7 transition duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(201,164,76,.35)]">
+          {services.map((s, i) => (
+            <AnimatedSection key={s.title} delay={(i % 3) * 0.12} className="glass card-glow rounded-3xl p-7 transition duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(201,164,76,.35)]">
               <div className="text-3xl text-gold">{s.icon}</div>
               <h3 className="mt-5 text-2xl font-semibold">{s.title}</h3>
               <p className="mt-3 leading-7 text-zinc-400">{s.description}</p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
 
         <div className="mt-14 text-center">
-          <p className="text-xs uppercase tracking-[4px] text-zinc-500">Areas I serve in Dhaka</p>
+          <p className="text-xs uppercase tracking-[4px] text-zinc-500">Popular areas I serve</p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
             {areas.map((a) => (
               <span key={a} className="rounded-full border border-gold/30 px-4 py-2 text-sm text-zinc-300">{a}</span>

@@ -3,7 +3,7 @@ import profile from "@/data/profile";
 import SectionHeading from "@/components/SectionHeading";
 
 const points = [
-  "Local expertise across Gulshan, Banani, Bashundhara R/A, Uttara, Dhanmondi and Mohammadpur",
+  "Local expertise in Dhaka, Chattogram and Cumilla",
   "Transparent pricing — no hidden commissions or surprises",
   "Guidance on documents, verification and registration",
   "Available by phone and WhatsApp, in Bangla and English",
@@ -31,7 +31,7 @@ export default function About() {
               Hello, I&apos;m <span className="text-gold">{profile.name}</span>
             </h3>
             <p className="mt-5 leading-8 text-zinc-400">
-              I&apos;m a Dhaka-based real estate consultant who believes buying, selling or renting a property
+              I&apos;m a real estate consultant working across Dhaka, Chattogram and Cumilla, who believes buying, selling or renting a property
               should feel clear and safe. Every client gets my personal attention — I listen first, shortlist
               only what fits your needs and budget, and stay with you until the deal is closed.
             </p>

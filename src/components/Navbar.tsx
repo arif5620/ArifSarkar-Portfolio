@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import profile from "@/data/profile";
 
@@ -30,9 +31,9 @@ export default function Navbar() {
           scrolled ? "border-gold/30 bg-zinc-950/85 shadow-2xl shadow-black/40" : "border-white/10 bg-black/40"
         }`}
       >
-        <a href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-white sm:text-2xl">
+        <Link href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-white sm:text-2xl">
           ARIF<span className="text-gold">.</span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 text-sm md:flex">
           {navLinks.map((item) => (
