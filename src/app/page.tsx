@@ -1,16 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
-// import Skills from "@/sections/Skills";
-import Projects from "@/sections/Projects";
-import Facebook from "@/sections/Facebook";
+import Properties from "@/sections/Properties";
 import Services from "@/sections/Services";
-import Experience from "@/sections/Experience";
+import WhyChoose from "@/sections/WhyChoose";
 import Blog from "@/sections/blog";
 import Contact from "@/sections/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import FacebookAds from "@/sections/Facebook";
 
 export default function Home() {
   return (
@@ -18,11 +15,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      {/* <Skills /> */}
-      <Projects />
-      <Facebook/>
+      <Properties />
       <Services />
-      <Experience />
+      <WhyChoose />
       <Blog />
       <Contact />
       <Footer />

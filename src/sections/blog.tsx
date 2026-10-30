@@ -65,8 +65,8 @@ export default function Blog() {
       id="blog"
       className="relative overflow-hidden bg-black py-20 text-white lg:py-24"
     >
-      <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/10 blur-[140px]" />
-      <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-cyan-500/10 blur-[140px]" />
+      <div className="absolute -left-32 top-0 h-80 w-80 rounded-full bg-gold/10 blur-[140px]" />
+      <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-gold/10 blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
@@ -76,18 +76,18 @@ export default function Blog() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-5 py-2 text-sm font-semibold uppercase tracking-[3px] text-blue-400">
+          <span className="rounded-full border border-gold/20 bg-gold/10 px-5 py-2 text-sm font-semibold uppercase tracking-[3px] text-gold">
             Blog
           </span>
 
           <h2 className="mt-6 text-4xl font-black md:text-5xl">
             Latest Articles
-            <span className="text-blue-500"> & Insights</span>
+            <span className="text-gold"> & Insights</span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl leading-8 text-gray-400">
-            Practical articles about SEO, AI, Meta Ads, WordPress and Digital
-            Marketing to help businesses grow online.
+            Practical guides on buying, selling and renting property in Dhaka —
+            market insights to help you decide with confidence.
           </p>
         </motion.div>
 
@@ -100,7 +100,7 @@ export default function Blog() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             whileHover={{ y: -6 }}
-            className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-blue-500 hover:shadow-[0_0_40px_rgba(59,130,246,.25)]"
+            className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_40px_rgba(201,164,76,.25)]"
           >
             <div className="grid lg:grid-cols-2">
 
@@ -120,7 +120,7 @@ export default function Blog() {
                 )}
 
                 <div className="absolute left-5 top-5">
-                  <span className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white">
+                  <span className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-white">
                     Featured
                   </span>
                 </div>
@@ -131,7 +131,7 @@ export default function Blog() {
 
               <div className="flex flex-col justify-center p-8 lg:p-10">
 
-                <span className="w-fit rounded-full bg-blue-500/10 px-3 py-1 text-sm font-semibold text-blue-400">
+                <span className="w-fit rounded-full bg-gold/10 px-3 py-1 text-sm font-semibold text-gold">
                   {featured.category}
                 </span>
 
@@ -149,7 +149,7 @@ export default function Blog() {
 
                 </div>
 
-                <h3 className="mt-6 text-3xl font-black leading-tight transition-colors duration-300 group-hover:text-blue-400">
+                <h3 className="mt-6 text-3xl font-black leading-tight transition-colors duration-300 group-hover:text-gold">
                   {featured.title}
                 </h3>
 
@@ -159,7 +159,7 @@ export default function Blog() {
 
                 <a
                   href={`/blog/${featured.slug.current}`}
-                  className="mt-8 inline-flex items-center gap-2 font-semibold text-blue-400 transition-all duration-300 hover:gap-4"
+                  className="mt-8 inline-flex items-center gap-2 font-semibold text-gold transition-all duration-300 hover:gap-4"
                 >
                   Read Article
                   <FaArrowRight />
@@ -186,7 +186,7 @@ export default function Blog() {
                   delay: index * 0.15,
                 }}
                 whileHover={{ y: -6 }}
-                className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-blue-500 hover:shadow-[0_0_35px_rgba(59,130,246,.2)]"
+                className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition-all duration-500 hover:border-gold hover:shadow-[0_0_35px_rgba(201,164,76,.2)]"
               >
                                 {/* Thumbnail */}
 
@@ -208,7 +208,7 @@ export default function Blog() {
 
                 <div className="p-6">
 
-                  <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm font-semibold text-blue-400">
+                  <span className="rounded-full bg-gold/10 px-3 py-1 text-sm font-semibold text-gold">
                     {blog.category}
                   </span>
 
@@ -226,7 +226,7 @@ export default function Blog() {
 
                   </div>
 
-                  <h3 className="mt-5 text-xl font-bold leading-snug transition-colors duration-300 group-hover:text-blue-400">
+                  <h3 className="mt-5 text-xl font-bold leading-snug transition-colors duration-300 group-hover:text-gold">
                     {blog.title}
                   </h3>
 
@@ -236,7 +236,7 @@ export default function Blog() {
 
                   <a
                     href={`/blog/${blog.slug.current}`}
-                    className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-400 transition-all duration-300 group-hover:gap-4"
+                    className="mt-6 inline-flex items-center gap-2 font-semibold text-gold transition-all duration-300 group-hover:gap-4"
                   >
                     Read Article
                     <FaArrowRight />
@@ -259,7 +259,7 @@ export default function Blog() {
           >
             <a
               href="/blog"
-              className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-8 py-4 font-semibold text-white shadow-[0_0_25px_rgba(59,130,246,.35)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,.55)]"
+              className="rounded-full bg-gradient-to-r from-gold to-gold px-8 py-4 font-semibold text-white shadow-[0_0_25px_rgba(201,164,76,.35)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(201,164,76,.55)]"
             >
               View All Articles
             </a>

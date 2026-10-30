@@ -1,21 +1,17 @@
+const phone = "+8801828205620";
+
 const profile = {
-  name: "Arif",
-  fullName: "Ariful Islam",
+  name: "Arif Sarkar",
+  fullName: "Arif Sarkar",
 
-  title: "Digital Marketing Manager",
-
-  subtitle: "WordPress Website Designer • AI Website & Video Creator",
+  title: "Real Estate Consultant & Realtor",
 
   description:
-    "Helping businesses grow through strategic digital marketing, high-converting WordPress websites, SEO and AI-powered solutions.",
-
-  experience: "5+",
-  projects: "100+",
-  clients: "300+",
+    "Trusted Realtor in Dhaka helping buyers, sellers and tenants find, sell and rent apartments, houses, land and commercial space with honesty and clear guidance.",
 
   email: "contact@arifsarkar.com",
 
-  phone: "+8801828205620",
+  phone,
 
   whatsapp: "https://wa.me/8801828205620",
 
@@ -26,12 +22,13 @@ const profile = {
   social: {
     facebook: "https://www.facebook.com/arifsarkarofficial.1/",
     linkedin: "https://www.linkedin.com/in/ariful-islam-a64423336/",
-    github: "https://github.com/arif5620",
     instagram: "https://www.instagram.com/arifulislam__official/",
     x: "https://x.com/ariful_islamjoy",
-    pinterest:
-      "https://www.pinterest.com/arifsarkar5620/?actingBusinessId=1012395328642725130",
   },
 };
+
+// Prefilled WhatsApp inquiry link.
+export const waLink = (text: string) =>
+  `${profile.whatsapp}?text=${encodeURIComponent(text)}`;
 
 export default profile;
