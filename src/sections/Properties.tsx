@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaBed, FaBath, FaRulerCombined, FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
+import TiltCard from "@/components/TiltCard";
 import SectionHeading from "@/components/SectionHeading";
 import { properties } from "@/data/properties";
 import { waLink } from "@/data/profile";
@@ -43,7 +44,8 @@ export default function Properties() {
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((p) => (
-            <article key={p.id} className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:-translate-y-2 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
+            <TiltCard key={p.id} className="rounded-3xl">
+            <article className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
               <div className="relative h-60 overflow-hidden bg-zinc-900">
                 <Image
                   src={p.image}
@@ -81,6 +83,7 @@ export default function Properties() {
                 </a>
               </div>
             </article>
+            </TiltCard>
           ))}
         </div>
 

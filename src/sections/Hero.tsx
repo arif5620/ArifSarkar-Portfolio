@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaPhoneAlt, FaWhatsapp, FaSearch, FaCheckCircle } from "react-icons/fa";
 import profile, { waLink } from "@/data/profile";
 import { heroImage } from "@/data/properties";
+
+const City3D = dynamic(() => import("@/components/City3D"), { ssr: false });
 
 const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "Purbachal", "Chattogram — Khulshi", "Chattogram — Nasirabad", "Chattogram — Agrabad", "Cumilla — Kandirpar", "Cumilla — Kotbari"];
 const goals = ["Buy", "Rent", "Sell"] as const;
@@ -23,6 +26,15 @@ const select =
 
 export default function Hero() {
   const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
+  const [use3D, setUse3D] = useState(false);
+
+  // 3D city only where WebGL works and the visitor hasn't asked for reduced motion; photo otherwise.
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const gl = document.createElement("canvas").getContext("webgl2");
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- capability check needs the browser
+    setUse3D(!reduced && !!gl);
+  }, []);
 
   // Finder has no backend: it opens a prefilled WhatsApp inquiry.
   const onFind = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,9 +54,15 @@ export default function Hero() {
       >
         <Image src={heroImage} alt="Luxury home in Dhaka at dusk" fill priority sizes="100vw" className="object-cover" />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
-      <div className="bg-grid absolute inset-0 opacity-60" />
+      {use3D && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5 }} className="absolute inset-0">
+          <City3D />
+        </motion.div>
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-black/50 lg:hidden" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+      {!use3D && <div className="bg-grid absolute inset-0 opacity-60" />}
       <div className="animate-drift absolute -left-40 top-1/3 h-96 w-96 rounded-full bg-gold/20 blur-[160px]" />
 
       <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-4 pb-10 pt-32 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:pt-36">
