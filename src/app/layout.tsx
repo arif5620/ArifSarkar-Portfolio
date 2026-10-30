@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import profile from "@/data/profile";
 import CursorGlow from "@/components/CursorGlow";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -76,6 +78,7 @@ export default function RootLayout({
         />
         {children}
         <CursorGlow />
+        <SmoothScroll />
       </body>
     </html>
   );

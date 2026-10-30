@@ -7,6 +7,10 @@ import SectionHeading from "@/components/SectionHeading";
 import TiltCard from "@/components/TiltCard";
 import { bdPath } from "@/data/bdMap";
 import { waLink } from "@/data/profile";
+import { deals, sampleDeals, project } from "@/data/deals";
+
+// Real deals only in production; sample pins help preview the design locally.
+const shownDeals = deals.length || process.env.NODE_ENV === "production" ? deals : sampleDeals;
 
 // x/y are positions on the 400x567 map (projected from lat/long); label sits where it can't be clipped.
 const cities = [
@@ -65,6 +69,8 @@ export default function ServiceAreas() {
   }, [paused]);
 
   const city = cities[active];
+  const [hovered, setHovered] = useState<number | null>(null);
+  const deal = hovered === null ? null : shownDeals[hovered];
 
   return (
     <section id="areas" className="relative overflow-hidden bg-[#09090B] py-20 lg:py-28">
@@ -76,6 +82,12 @@ export default function ServiceAreas() {
           title="Dhaka · Chattogram · Cumilla"
           text="One trusted Realtor across three cities — from the capital to the port city and the heart of the corridor."
         />
+
+        {shownDeals.length > 0 && (
+          <p className="mt-8 text-center text-sm text-zinc-400">
+            <span className="text-gold">◆</span> {shownDeals.length} deals closed across three cities — hover a pin to see one
+          </p>
+        )}
 
         <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
           <TiltCard className="glass card-glow mx-auto w-full max-w-md rounded-[2rem] p-4 sm:p-6">
@@ -156,6 +168,27 @@ export default function ServiceAreas() {
                   </animateMotion>
                 </g>
 
+                {shownDeals.map((d, i) => {
+                  const { x, y } = project(d.lat, d.lon);
+                  return (
+                    <motion.g
+                      key={d.area + i}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 2.5 + i * 0.12, type: "spring" }}
+                      style={{ originX: `${x}px`, originY: `${y}px` }}
+                      className="cursor-pointer"
+                      onMouseEnter={() => setHovered(i)}
+                      onMouseLeave={() => setHovered(null)}
+                      onClick={() => setHovered(i)}
+                    >
+                      <circle cx={x} cy={y} r="9" fill="transparent" />
+                      <rect x={x - 3.5} y={y - 3.5} width="7" height="7" transform={`rotate(45 ${x} ${y})`} fill={hovered === i ? "#fff" : "#f8e7b0"} filter="url(#glow)" />
+                    </motion.g>
+                  );
+                })}
+
                 {cities.map((c, i) => {
                   const on = active === i;
                   const w = c.name.length * 12 + 24;
@@ -180,6 +213,21 @@ export default function ServiceAreas() {
 
               {/* Pop-up "deal" bubble above the active city */}
               <AnimatePresence mode="wait">
+                {deal ? (
+                  <motion.div
+                    key={`deal-${hovered}`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-[140%]"
+                    style={{ left: `${((project(deal.lat, deal.lon).x + 10) / 420) * 100}%`, top: `${((project(deal.lat, deal.lon).y + 10) / 590) * 100}%` }}
+                  >
+                    <div className="whitespace-nowrap rounded-xl border border-gold/50 bg-black/85 px-3 py-2 text-xs shadow-[0_10px_30px_rgba(201,164,76,.4)]">
+                      <p className="font-semibold text-gold">✓ {deal.type}</p>
+                      <p className="text-zinc-300">{deal.area}, {deal.city} · {deal.year}</p>
+                    </div>
+                  </motion.div>
+                ) : (
                 <motion.div
                   key={city.name}
                   initial={{ opacity: 0, y: 15, scale: 0.8 }}
@@ -197,6 +245,7 @@ export default function ServiceAreas() {
                     </div>
                   </div>
                 </motion.div>
+                )}
               </AnimatePresence>
             </div>
           </TiltCard>

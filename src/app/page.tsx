@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import IntroLoader from "@/components/IntroLoader";
 import Hero from "@/sections/Hero";
+import DealStory from "@/sections/DealStory";
 import About from "@/sections/About";
 import Properties from "@/sections/Properties";
 import ServiceAreas from "@/sections/ServiceAreas";
@@ -21,6 +22,7 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <Hero />
+      <DealStory />
       <About />
       <Properties />
       <ServiceAreas />
