@@ -13,7 +13,7 @@ const points = [
 
 export default function About() {
   return (
-    <section id="about" className="bg-[#09090B] py-20 lg:py-28">
+    <section id="about" className="bg-ink-2 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="About Me" title="A Realtor you can trust" />
 
@@ -24,7 +24,7 @@ export default function About() {
               alt={`${profile.name}, Realtor in Dhaka`}
               width={600}
               height={700}
-              className="h-auto w-full bg-zinc-900 object-cover"
+              className="h-auto w-full bg-ink-2 object-cover"
             />
           </TiltCard>
 
@@ -32,18 +32,18 @@ export default function About() {
             <h3 className="text-3xl font-semibold sm:text-4xl">
               Hello, I&apos;m <span className="text-gold">{profile.name}</span>
             </h3>
-            <p className="mt-5 leading-8 text-zinc-400">
+            <p className="mt-5 leading-8 text-mute">
               I&apos;m a real estate consultant working across Dhaka, Chattogram and Cumilla, who believes buying, selling or renting a property
               should feel clear and safe. Every client gets my personal attention — I listen first, shortlist
               only what fits your needs and budget, and stay with you until the deal is closed.
             </p>
-            <p className="mt-4 leading-8 text-zinc-400">
+            <p className="mt-4 leading-8 text-mute">
               My focus is simple: honest advice, verified properties and long-term relationships built on trust.
             </p>
 
             <ul className="mt-7 space-y-3">
               {points.map((p) => (
-                <li key={p} className="flex gap-3 text-zinc-300">
+                <li key={p} className="flex gap-3 text-soft">
                   <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
                   {p}
                 </li>

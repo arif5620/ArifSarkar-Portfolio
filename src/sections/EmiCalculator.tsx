@@ -23,7 +23,7 @@ function Slider({ label, value, display, min, max, step, onChange }: {
   return (
     <label className="block">
       <div className="flex justify-between text-sm">
-        <span className="text-zinc-400">{label}</span>
+        <span className="text-mute">{label}</span>
         <span className="font-semibold text-gold">{display}</span>
       </div>
       <input
@@ -33,7 +33,7 @@ function Slider({ label, value, display, min, max, step, onChange }: {
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-3 w-full accent-[#c9a44c]"
+        className="mt-3 w-full accent-gold"
       />
     </label>
   );
@@ -51,7 +51,7 @@ export default function EmiCalculator() {
   const interestShare = total > 0 ? ((total - loan) / total) * 100 : 0;
 
   return (
-    <section id="emi" className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <section id="emi" className="relative overflow-hidden bg-ink py-20 lg:py-28">
       <div className="bg-grid absolute inset-0 opacity-50" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
@@ -71,10 +71,10 @@ export default function EmiCalculator() {
           <div className="flex flex-col items-center justify-center text-center">
             <div
               className="relative flex h-56 w-56 items-center justify-center rounded-full"
-              style={{ background: `conic-gradient(#c9a44c ${interestShare}%, #3f3f46 0)` }}
+              style={{ background: `conic-gradient(var(--gold) ${interestShare}%, var(--line) 0)` }}
             >
-              <div className="flex h-44 w-44 flex-col items-center justify-center rounded-full bg-zinc-950">
-                <span className="text-xs uppercase tracking-[3px] text-zinc-500">Monthly EMI</span>
+              <div className="flex h-44 w-44 flex-col items-center justify-center rounded-full bg-ink-2">
+                <span className="text-xs uppercase tracking-[3px] text-mute-2">Monthly EMI</span>
                 <motion.span key={Math.round(monthly)} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mt-2 font-display text-3xl font-semibold text-gold">
                   {taka(monthly)}
                 </motion.span>
@@ -82,11 +82,11 @@ export default function EmiCalculator() {
             </div>
             <div className="mt-8 grid w-full grid-cols-2 gap-4 text-sm">
               <div className="glass rounded-2xl p-4">
-                <p className="text-zinc-500">Loan amount</p>
+                <p className="text-mute-2">Loan amount</p>
                 <p className="mt-1 font-semibold">{taka(loan)}</p>
               </div>
               <div className="glass rounded-2xl p-4">
-                <p className="text-zinc-500"><span className="text-gold">●</span> Total interest</p>
+                <p className="text-mute-2"><span className="text-gold">●</span> Total interest</p>
                 <p className="mt-1 font-semibold">{taka(total - loan)}</p>
               </div>
             </div>

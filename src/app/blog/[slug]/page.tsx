@@ -71,21 +71,21 @@ export default async function BlogDetails({ params }: Props) {
   const related = (await getPosts()).filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-ink text-fg">
       <ScrollProgress />
       <Navbar />
 
       <header className="relative flex min-h-[70svh] items-end overflow-hidden">
         <Image src={post.image} alt={post.title} fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
         <div className="relative mx-auto w-full max-w-4xl px-6 pb-14 pt-40">
-          <Link href="/blog" className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-zinc-300 transition hover:text-gold">
+          <Link href="/blog" className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-soft transition hover:text-gold">
             <ArrowLeft size={16} /> All insights
           </Link>
           <AnimatedSection>
             <span className="mt-8 inline-block rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">{post.category}</span>
             <h1 className="mt-5 text-4xl font-semibold leading-tight sm:text-6xl">{post.title}</h1>
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-zinc-400">
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-mute">
               <span className="text-gold">By {profile.name}</span>
               <span>{formatDate(post.date)}</span>
               <span className="flex items-center gap-1"><Clock size={14} /> {post.readMinutes} min read</span>
@@ -97,7 +97,7 @@ export default async function BlogDetails({ params }: Props) {
       <article className="mx-auto max-w-3xl px-6 py-16">
         {post.excerpt && (
           <AnimatedSection>
-            <p className="border-l-2 border-gold pl-6 font-display text-2xl leading-relaxed text-zinc-200">{post.excerpt}</p>
+            <p className="border-l-2 border-gold pl-6 font-display text-2xl leading-relaxed text-soft">{post.excerpt}</p>
           </AnimatedSection>
         )}
 
@@ -105,12 +105,12 @@ export default async function BlogDetails({ params }: Props) {
           <AnimatedSection key={s.heading} className="mt-12">
             <h2 className="text-3xl font-semibold text-gold-soft">{s.heading}</h2>
             {s.paragraphs.map((p) => (
-              <p key={p} className="mt-4 text-lg leading-8 text-zinc-300">{p}</p>
+              <p key={p} className="mt-4 text-lg leading-8 text-soft">{p}</p>
             ))}
             {s.points && (
               <ul className="mt-5 space-y-3">
                 {s.points.map((pt) => (
-                  <li key={pt} className="glass flex gap-3 rounded-2xl px-5 py-3 text-zinc-200">
+                  <li key={pt} className="glass flex gap-3 rounded-2xl px-5 py-3 text-soft">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" /> {pt}
                   </li>
                 ))}
@@ -120,7 +120,7 @@ export default async function BlogDetails({ params }: Props) {
         ))}
 
         {post.body && (
-          <div className="prose prose-invert prose-lg mt-10 max-w-none prose-headings:font-display prose-a:text-gold">
+          <div className="prose dark:prose-invert prose-lg mt-10 max-w-none prose-headings:font-display prose-a:text-gold">
             <PortableText value={post.body} />
           </div>
         )}
@@ -131,7 +131,7 @@ export default async function BlogDetails({ params }: Props) {
           </div>
           <div className="flex-1">
             <p className="font-display text-3xl font-semibold">Need help with your next move?</p>
-            <p className="mt-2 text-zinc-400">I&apos;m {profile.name}, a Realtor in Dhaka, Chattogram and Cumilla. Ask me anything — it&apos;s free.</p>
+            <p className="mt-2 text-mute">I&apos;m {profile.name}, a Realtor in Dhaka, Chattogram and Cumilla. Ask me anything — it&apos;s free.</p>
             <div className="mt-5 flex flex-wrap justify-center gap-3 sm:justify-start">
               <a href={waLink(`Hello Arif, I just read "${post.title}" and have a question.`)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 rounded-full bg-green-500 px-6 py-3 text-sm font-semibold text-white hover:bg-green-600">
                 <FaWhatsapp /> WhatsApp

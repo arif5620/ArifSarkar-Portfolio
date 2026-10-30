@@ -18,7 +18,7 @@ const steps = [
 
 export default function WhyChoose() {
   return (
-    <section id="why-me" className="bg-black py-20 lg:py-28">
+    <section id="why-me" className="bg-ink py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="Why Choose Me" title="Real estate, done with trust" />
 
@@ -29,7 +29,7 @@ export default function WhyChoose() {
                 {r.icon}
               </div>
               <h3 className="mt-5 text-2xl font-semibold">{r.title}</h3>
-              <p className="mt-3 leading-7 text-zinc-400">{r.text}</p>
+              <p className="mt-3 leading-7 text-mute">{r.text}</p>
             </AnimatedSection>
           ))}
         </div>
@@ -43,7 +43,7 @@ export default function WhyChoose() {
                 {i + 1}
               </div>
               <h4 className="mt-5 font-display text-2xl font-semibold">{s.title}</h4>
-              <p className="mt-2 text-sm leading-6 text-zinc-400">{s.text}</p>
+              <p className="mt-2 text-sm leading-6 text-mute">{s.text}</p>
             </AnimatedSection>
           ))}
         </div>

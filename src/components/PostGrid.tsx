@@ -36,12 +36,12 @@ export function PostCardView({ post, index = 0 }: { post: PostCard; index?: numb
           </span>
         </div>
         <div className="p-6">
-          <div className="flex items-center gap-3 text-xs text-zinc-500">
+          <div className="flex items-center gap-3 text-xs text-mute-2">
             <span>{formatDate(post.date)}</span>
             <span className="flex items-center gap-1"><Clock size={13} /> {post.readMinutes} min read</span>
           </div>
           <h3 className="mt-3 text-2xl font-semibold leading-snug transition group-hover:text-gold">{post.title}</h3>
-          <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-400">{post.excerpt}</p>
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-mute">{post.excerpt}</p>
           <span className="mt-5 flex items-center gap-2 text-sm font-semibold text-gold transition-all group-hover:gap-4">
             Read article <ArrowRight size={16} />
           </span>
@@ -65,13 +65,13 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
     <>
       <div className="mx-auto mt-12 max-w-2xl">
         <div className="relative">
-          <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500" />
+          <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-mute-2" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search articles..."
             aria-label="Search articles"
-            className="glass w-full rounded-full py-4 pl-14 pr-5 text-white outline-none transition placeholder:text-zinc-500 focus:border-gold"
+            className="glass w-full rounded-full py-4 pl-14 pr-5 text-fg outline-none transition placeholder:text-mute-2 focus:border-gold"
           />
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
             key={c}
             onClick={() => setCategory(c)}
             className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
-              c === category ? "bg-gold text-black" : "glass text-zinc-300 hover:text-gold"
+              c === category ? "bg-gold text-black" : "glass text-soft hover:text-gold"
             }`}
           >
             {c}
@@ -96,7 +96,7 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
         </AnimatePresence>
       </motion.div>
 
-      {shown.length === 0 && <p className="mt-16 text-center text-zinc-500">No articles match your search.</p>}
+      {shown.length === 0 && <p className="mt-16 text-center text-mute-2">No articles match your search.</p>}
     </>
   );
 }

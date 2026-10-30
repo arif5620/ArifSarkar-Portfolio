@@ -8,8 +8,7 @@ export default async function Blog() {
   if (posts.length === 0) return null;
 
   return (
-    <section id="blog" className="relative overflow-hidden bg-[#09090B] py-20 lg:py-28">
-      <div className="animate-drift absolute -right-40 top-0 h-96 w-96 rounded-full bg-gold/10 blur-[150px]" />
+    <section id="blog" className="relative overflow-hidden bg-ink-2 py-20 lg:py-28">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Insights"

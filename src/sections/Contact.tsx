@@ -5,7 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 
 const field =
-  "w-full rounded-2xl border border-white/10 bg-black/60 px-5 py-4 text-white outline-none transition focus:border-gold focus:shadow-[0_0_25px_rgba(201,164,76,.25)]";
+  "w-full rounded-2xl border border-line bg-ink px-5 py-4 text-fg outline-none transition focus:border-gold focus:shadow-[0_0_25px_rgba(201,164,76,.25)]";
 
 const info = [
   { icon: <FaPhoneAlt />, title: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-[#09090B] py-20 lg:py-28">
+    <section id="contact" className="bg-ink-2 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Contact"
@@ -38,7 +38,7 @@ export default function Contact() {
                 <>
                   <div className="rounded-full border border-gold/40 p-4 text-gold">{i.icon}</div>
                   <div>
-                    <p className="text-sm text-zinc-500">{i.title}</p>
+                    <p className="text-sm text-mute-2">{i.title}</p>
                     <p className="mt-1 text-lg">{i.value}</p>
                   </div>
                 </>

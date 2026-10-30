@@ -73,8 +73,7 @@ export default function ServiceAreas() {
   const deal = hovered === null ? null : shownDeals[hovered];
 
   return (
-    <section id="areas" className="relative overflow-hidden bg-[#09090B] py-20 lg:py-28">
-      <div className="animate-drift absolute -left-40 top-20 h-96 w-96 rounded-full bg-gold/10 blur-[150px]" />
+    <section id="areas" className="relative overflow-hidden bg-ink-2 py-20 lg:py-28">
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
@@ -84,7 +83,7 @@ export default function ServiceAreas() {
         />
 
         {shownDeals.length > 0 && (
-          <p className="mt-8 text-center text-sm text-zinc-400">
+          <p className="mt-8 text-center text-sm text-mute">
             <span className="text-gold">◆</span> {shownDeals.length} deals closed across three cities — hover a pin to see one
           </p>
         )}
@@ -95,16 +94,16 @@ export default function ServiceAreas() {
               <svg viewBox="-10 -10 420 590" className="relative w-full" role="img" aria-label="Map of Bangladesh showing Dhaka, Chattogram and Cumilla">
                 <defs>
                   <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
-                    <circle cx="1.5" cy="1.5" r="1.2" fill="#c9a44c" opacity="0.4" />
+                    <circle cx="1.5" cy="1.5" r="1.2" fill="var(--gold)" opacity="0.4" />
                   </pattern>
                   <linearGradient id="routeGrad" x1="0" x2="1">
-                    <stop offset="0" stopColor="#f8e7b0" />
-                    <stop offset="1" stopColor="#c9a44c" />
+                    <stop offset="0" stopColor="var(--gold-soft)" />
+                    <stop offset="1" stopColor="var(--gold)" />
                   </linearGradient>
                   <linearGradient id="scan" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0" stopColor="#f8e7b0" stopOpacity="0" />
-                    <stop offset="0.5" stopColor="#f8e7b0" stopOpacity="0.35" />
-                    <stop offset="1" stopColor="#f8e7b0" stopOpacity="0" />
+                    <stop offset="0" stopColor="var(--gold-soft)" stopOpacity="0" />
+                    <stop offset="0.5" stopColor="var(--gold-soft)" stopOpacity="0.35" />
+                    <stop offset="1" stopColor="var(--gold-soft)" stopOpacity="0" />
                   </linearGradient>
                   <clipPath id="bdClip"><path d={bdPath} /></clipPath>
                   <filter id="glow">
@@ -115,12 +114,12 @@ export default function ServiceAreas() {
                 </defs>
 
                 {/* Extruded depth layer */}
-                <path d={bdPath} transform="translate(0 12)" fill="#c9a44c" opacity="0.12" filter="url(#soft)" />
+                <path d={bdPath} transform="translate(0 12)" fill="var(--gold)" opacity="0.12" filter="url(#soft)" />
 
                 <motion.path
                   d={bdPath}
                   fill="url(#dots)"
-                  stroke="#c9a44c"
+                  stroke="var(--gold)"
                   strokeOpacity="0.7"
                   strokeWidth="1.4"
                   initial={{ pathLength: 0, opacity: 0 }}
@@ -136,7 +135,7 @@ export default function ServiceAreas() {
                   </rect>
                 </g>
 
-                <path id="route" d={route} fill="none" stroke="#c9a44c" strokeOpacity="0.25" strokeWidth="6" strokeLinecap="round" />
+                <path id="route" d={route} fill="none" stroke="var(--gold)" strokeOpacity="0.25" strokeWidth="6" strokeLinecap="round" />
                 <motion.path
                   d={route}
                   fill="none"
@@ -154,15 +153,15 @@ export default function ServiceAreas() {
 
                 {/* Light trail following a golden house along the route */}
                 {trail.map((k) => (
-                  <circle key={k} r={5 - k * 0.7} fill="#f8e7b0" opacity={0.8 - k * 0.13}>
+                  <circle key={k} r={5 - k * 0.7} fill="var(--gold-soft)" opacity={0.8 - k * 0.13}>
                     <animateMotion dur="6s" repeatCount="indefinite" begin={`${2 + k * 0.07}s`}>
                       <mpath href="#route" />
                     </animateMotion>
                   </circle>
                 ))}
                 <g filter="url(#glow)">
-                  <circle r="13" fill="#0b0b0f" stroke="#f8e7b0" strokeWidth="2" />
-                  <path d="M-7 1 L0 -6 L7 1 M-5 0 V7 H5 V0" fill="none" stroke="#f8e7b0" strokeWidth="2" strokeLinejoin="round" />
+                  <circle r="13" fill="var(--ink-2)" stroke="var(--gold-soft)" strokeWidth="2" />
+                  <path d="M-7 1 L0 -6 L7 1 M-5 0 V7 H5 V0" fill="none" stroke="var(--gold-soft)" strokeWidth="2" strokeLinejoin="round" />
                   <animateMotion dur="6s" repeatCount="indefinite" begin="2s">
                     <mpath href="#route" />
                   </animateMotion>
@@ -184,7 +183,7 @@ export default function ServiceAreas() {
                       onClick={() => setHovered(i)}
                     >
                       <circle cx={x} cy={y} r="9" fill="transparent" />
-                      <rect x={x - 3.5} y={y - 3.5} width="7" height="7" transform={`rotate(45 ${x} ${y})`} fill={hovered === i ? "#fff" : "#f8e7b0"} filter="url(#glow)" />
+                      <rect x={x - 3.5} y={y - 3.5} width="7" height="7" transform={`rotate(45 ${x} ${y})`} fill={hovered === i ? "#fff" : "var(--gold-soft)"} filter="url(#glow)" />
                     </motion.g>
                   );
                 })}
@@ -197,13 +196,13 @@ export default function ServiceAreas() {
                   const rx = c.label.anchor === "end" ? lx - w + 10 : c.label.anchor === "middle" ? lx - w / 2 : lx - 10;
                   return (
                     <g key={c.name} className="cursor-pointer" onClick={() => pick(i)}>
-                      <circle cx={c.x} cy={c.y} r="10" fill="none" stroke="#c9a44c" strokeWidth="2">
+                      <circle cx={c.x} cy={c.y} r="10" fill="none" stroke="var(--gold)" strokeWidth="2">
                         <animate attributeName="r" values="8;30" dur="2s" begin={`${i * 0.6}s`} repeatCount="indefinite" />
                         <animate attributeName="opacity" values="1;0" dur="2s" begin={`${i * 0.6}s`} repeatCount="indefinite" />
                       </circle>
-                      <circle cx={c.x} cy={c.y} r={on ? 10 : 7} fill={on ? "#f8e7b0" : "#c9a44c"} filter="url(#glow)" style={{ transition: "all .5s" }} />
-                      <rect x={rx} y={ly - 22} width={w} height={32} rx={16} fill={on ? "#c9a44c" : "#0b0b0f"} stroke="#c9a44c" strokeOpacity="0.6" style={{ transition: "all .5s" }} />
-                      <text x={lx} y={ly} textAnchor={c.label.anchor} className="font-display" fontSize="21" fontWeight="700" fill={on ? "#000" : "#f5f1e8"}>
+                      <circle cx={c.x} cy={c.y} r={on ? 10 : 7} fill={on ? "var(--gold-soft)" : "var(--gold)"} filter="url(#glow)" style={{ transition: "all .5s" }} />
+                      <rect x={rx} y={ly - 22} width={w} height={32} rx={16} fill={on ? "var(--gold)" : "var(--ink-2)"} stroke="var(--gold)" strokeOpacity="0.6" style={{ transition: "all .5s" }} />
+                      <text x={lx} y={ly} textAnchor={c.label.anchor} className="font-display" fontSize="21" fontWeight="700" fill={on ? "#000" : "var(--fg)"}>
                         {c.name}
                       </text>
                     </g>
@@ -222,9 +221,9 @@ export default function ServiceAreas() {
                     className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-[140%]"
                     style={{ left: `${((project(deal.lat, deal.lon).x + 10) / 420) * 100}%`, top: `${((project(deal.lat, deal.lon).y + 10) / 590) * 100}%` }}
                   >
-                    <div className="whitespace-nowrap rounded-xl border border-gold/50 bg-black/85 px-3 py-2 text-xs shadow-[0_10px_30px_rgba(201,164,76,.4)]">
+                    <div className="whitespace-nowrap rounded-xl border border-gold/50 bg-ink/90 px-3 py-2 text-xs shadow-[0_10px_30px_rgba(201,164,76,.4)]">
                       <p className="font-semibold text-gold">✓ {deal.type}</p>
-                      <p className="text-zinc-300">{deal.area}, {deal.city} · {deal.year}</p>
+                      <p className="text-soft">{deal.area}, {deal.city} · {deal.year}</p>
                     </div>
                   </motion.div>
                 ) : (
@@ -237,7 +236,7 @@ export default function ServiceAreas() {
                   className={`pointer-events-none absolute z-10 ${bubblePos[city.name]}`}
                   style={{ left: `${((city.x + 10) / 420) * 100}%`, top: `${((city.y + 10) / 590) * 100}%` }}
                 >
-                  <div className="glass flex items-center gap-3 whitespace-nowrap rounded-2xl border-gold/40 bg-black/70 px-4 py-2.5 shadow-[0_10px_40px_rgba(201,164,76,.35)]">
+                  <div className="glass flex items-center gap-3 whitespace-nowrap rounded-2xl border-gold/40 bg-ink/90 px-4 py-2.5 shadow-[0_10px_40px_rgba(201,164,76,.35)]">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gold text-black"><FaHome size={14} /></span>
                     <div>
                       <p className="text-sm font-semibold">{city.name}</p>
@@ -271,12 +270,12 @@ export default function ServiceAreas() {
                   <h3 className="text-3xl font-semibold">{c.name}</h3>
                   <span className="text-xs uppercase tracking-[3px] text-gold">{c.tag}</span>
                 </div>
-                <p className="mt-2 text-zinc-400">{c.text}</p>
+                <p className="mt-2 text-mute">{c.text}</p>
                 {active === i && (
                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                     <div className="mt-4 flex flex-wrap gap-2">
                       {c.areas.map((a) => (
-                        <span key={a} className="rounded-full border border-gold/30 px-3 py-1 text-xs text-zinc-300">{a}</span>
+                        <span key={a} className="rounded-full border border-gold/30 px-3 py-1 text-xs text-soft">{a}</span>
                       ))}
                     </div>
                     <a

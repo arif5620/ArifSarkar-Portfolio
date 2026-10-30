@@ -18,7 +18,7 @@ export default function Properties() {
   const list = properties.filter((p) => p.type === tab);
 
   return (
-    <section id="properties" className="bg-black py-20 lg:py-28">
+    <section id="properties" className="bg-ink py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Featured Properties"
@@ -27,13 +27,13 @@ export default function Properties() {
         />
 
         <div className="mt-10 flex justify-center">
-          <div className="flex rounded-full border border-white/10 p-1">
+          <div className="flex rounded-full border border-line p-1">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
                 className={`rounded-full px-8 py-2.5 text-sm font-semibold transition ${
-                  tab === t.id ? "bg-gold text-black" : "text-zinc-300 hover:text-gold"
+                  tab === t.id ? "bg-gold text-black" : "text-soft hover:text-gold"
                 }`}
               >
                 {t.label}
@@ -46,7 +46,7 @@ export default function Properties() {
           {list.map((p) => (
             <TiltCard key={p.id} className="rounded-3xl">
             <article className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
-              <div className="relative h-60 overflow-hidden bg-zinc-900">
+              <div className="relative h-60 overflow-hidden bg-ink-2">
                 <Image
                   src={p.image}
                   alt={`${p.title} in ${p.area}`}
@@ -58,14 +58,14 @@ export default function Properties() {
                 <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
                   {p.type === "sale" ? "For Sale" : "For Rent"}
                 </span>
-                <p className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow">{p.price}</p>
+                <p className="absolute bottom-4 left-4 text-xl font-semibold text-fg drop-shadow">{p.price}</p>
               </div>
               <div className="p-6">
-                <p className="text-xs uppercase tracking-[3px] text-zinc-500">{p.kind}</p>
+                <p className="text-xs uppercase tracking-[3px] text-mute-2">{p.kind}</p>
                 <h3 className="mt-1 text-2xl font-semibold">{p.title}</h3>
-                <p className="mt-1 text-sm text-zinc-400">{p.area}</p>
+                <p className="mt-1 text-sm text-mute">{p.area}</p>
 
-                <div className="mt-4 flex gap-5 border-t border-white/10 pt-4 text-sm text-zinc-400">
+                <div className="mt-4 flex gap-5 border-t border-line pt-4 text-sm text-mute">
                   {p.beds > 0 && (
                     <span className="flex items-center gap-2"><FaBed /> {p.beds}</span>
                   )}
@@ -87,7 +87,7 @@ export default function Properties() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-zinc-500">
+        <p className="mt-10 text-center text-mute-2">
           Looking to sell your property?{" "}
           <a href="#contact" className="text-gold underline-offset-4 hover:underline">
             Talk to me about a free valuation

@@ -33,7 +33,7 @@ export default function SectionHeading({
         {title.split(" ").map((w, i) => (
           <span key={i} className="inline-block overflow-hidden pb-2 align-top">
             <motion.span
-              className="inline-block bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent"
+              className="inline-block bg-gradient-to-b from-fg to-mute bg-clip-text text-transparent"
               variants={{ hidden: { y: "110%", rotate: 6 }, show: { y: 0, rotate: 0 } }}
               transition={{ duration: 0.9, delay: 0.15 + i * 0.08, ease }}
             >
@@ -52,7 +52,7 @@ export default function SectionHeading({
         <motion.p
           variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-6 leading-8 text-zinc-400"
+          className="mt-6 leading-8 text-mute"
         >
           {text}
         </motion.p>

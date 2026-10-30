@@ -6,8 +6,8 @@ import profile, { waLink } from "@/data/profile";
 export default function MobileActionBar() {
   const item = "flex flex-1 flex-col items-center gap-1 py-2.5 text-[11px] font-medium";
   return (
-    <nav className="glass fixed inset-x-3 bottom-3 z-50 flex rounded-2xl md:hidden" aria-label="Quick actions">
-      <Link href="/#properties" className={`${item} text-zinc-300`}><FaHome size={18} /> Properties</Link>
+    <nav className="fixed inset-x-3 bottom-3 z-50 flex rounded-2xl border border-line bg-ink/95 shadow-2xl backdrop-blur md:hidden" aria-label="Quick actions">
+      <Link href="/#properties" className={`${item} text-soft`}><FaHome size={18} /> Properties</Link>
       <a href={`tel:${profile.phone}`} className={`${item} text-gold`}><FaPhoneAlt size={17} /> Call</a>
       <a
         href={waLink("Hello Arif, I'd like to discuss a property.")}

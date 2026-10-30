@@ -15,7 +15,7 @@ const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "K
 
 export default function Services() {
   return (
-    <section id="services" className="bg-[#09090B] py-20 lg:py-28">
+    <section id="services" className="bg-ink-2 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Services"
@@ -28,16 +28,16 @@ export default function Services() {
             <AnimatedSection key={s.title} delay={(i % 3) * 0.12} className="glass card-glow rounded-3xl p-7 transition duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(201,164,76,.35)]">
               <div className="text-3xl text-gold">{s.icon}</div>
               <h3 className="mt-5 text-2xl font-semibold">{s.title}</h3>
-              <p className="mt-3 leading-7 text-zinc-400">{s.description}</p>
+              <p className="mt-3 leading-7 text-mute">{s.description}</p>
             </AnimatedSection>
           ))}
         </div>
 
         <div className="mt-14 text-center">
-          <p className="text-xs uppercase tracking-[4px] text-zinc-500">Popular areas I serve</p>
+          <p className="text-xs uppercase tracking-[4px] text-mute-2">Popular areas I serve</p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
             {areas.map((a) => (
-              <span key={a} className="rounded-full border border-gold/30 px-4 py-2 text-sm text-zinc-300">{a}</span>
+              <span key={a} className="rounded-full border border-gold/30 px-4 py-2 text-sm text-soft">{a}</span>
             ))}
           </div>
         </div>

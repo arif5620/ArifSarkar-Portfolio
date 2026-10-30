@@ -11,13 +11,13 @@ const social = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 overflow-hidden bg-[#050505] pb-24 md:pb-0">
+    <footer className="border-t border-line overflow-hidden bg-ink-2 pb-24 md:pb-0">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-14 text-center">
         <h2 className="text-3xl font-semibold tracking-[3px]">
           ARIF<span className="text-gold">.</span>
         </h2>
         <p className="mt-2 text-sm uppercase tracking-[4px] text-gold">{profile.title}</p>
-        <p className="mt-5 max-w-xl leading-8 text-zinc-400">
+        <p className="mt-5 max-w-xl leading-8 text-mute">
           Buy, sell and rent property in Dhaka, Chattogram and Cumilla — with honest advice and personal service from first
           call to final handover.
         </p>
@@ -30,14 +30,14 @@ export default function Footer() {
               aria-label={s.label}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/10 p-3 transition hover:border-gold hover:text-gold"
+              className="rounded-full border border-line p-3 transition hover:border-gold hover:text-gold"
             >
               {s.icon}
             </a>
           ))}
         </div>
 
-        <p className="mt-10 border-t border-white/10 pt-6 text-sm text-zinc-500">
+        <p className="mt-10 border-t border-line pt-6 text-sm text-mute-2">
           © {new Date().getFullYear()} {profile.name} · Real Estate Consultant & Realtor · {profile.location}
         </p>
       </div>

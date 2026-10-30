@@ -28,16 +28,16 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav
         className={`mx-auto mt-3 flex w-[92%] max-w-7xl items-center justify-between rounded-full border px-5 py-3 backdrop-blur-xl transition-all duration-300 lg:px-8 ${
-          scrolled ? "border-gold/30 bg-zinc-950/85 shadow-2xl shadow-black/40" : "border-white/10 bg-black/40"
+          scrolled ? "border-gold/30 bg-ink/85 shadow-2xl shadow-black/40" : "border-line bg-ink/60"
         }`}
       >
-        <Link href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-white sm:text-2xl">
+        <Link href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-fg sm:text-2xl">
           ARIF<span className="text-gold">.</span>
         </Link>
 
         <div className="hidden items-center gap-8 text-sm md:flex">
           {navLinks.map((item) => (
-            <a key={item.name} href={item.href} className="text-zinc-300 transition hover:text-gold">
+            <a key={item.name} href={item.href} className="text-soft transition hover:text-gold">
               {item.name}
             </a>
           ))}
@@ -52,7 +52,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen(!open)}
-          className="z-[9999] flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
+          className="z-[9999] flex h-10 w-10 items-center justify-center rounded-full border border-line text-fg md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -60,15 +60,15 @@ export default function Navbar() {
       </nav>
 
       <div className={`fixed inset-0 z-[9998] transition-all duration-300 md:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
-        <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" onClick={() => setOpen(false)} />
-        <div className="absolute left-1/2 top-20 w-[90%] max-w-sm -translate-x-1/2 rounded-3xl border border-white/10 bg-zinc-900/95 p-6">
+        <div className="absolute inset-0 bg-ink/90 backdrop-blur-xl" onClick={() => setOpen(false)} />
+        <div className="absolute left-1/2 top-20 w-[90%] max-w-sm -translate-x-1/2 rounded-3xl border border-line bg-ink-2 p-6">
           <div className="flex flex-col gap-2">
             {navLinks.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-lg text-zinc-300 hover:text-gold"
+                className="rounded-xl px-4 py-3 text-lg text-soft hover:text-gold"
               >
                 {item.name}
               </a>
