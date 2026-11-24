@@ -13,7 +13,7 @@ export default function MobileActionBar() {
         href={waLink("Hello Arif, I'd like to discuss a property.")}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${item} text-green-400`}
+        className={`${item} text-green-600 dark:text-green-400`}
       >
         <FaWhatsapp size={19} /> WhatsApp
       </a>

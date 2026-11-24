@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arif — Real Estate Consultant & Realtor
 
-## Getting Started
+Website for Arif, a Realtor serving Dhaka, Chattogram and Cumilla. Built with Next.js (App Router), Tailwind CSS v4, Framer Motion, React Three Fiber (3D hero) and Sanity (blog CMS at `/studio`).
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # add the Sanity project ID and dataset
+npm install
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` and `npm run lint` should both pass before deploying.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Where things live
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where |
+| --- | --- |
+| Name, phone, email, domain, social links | `src/data/profile.ts` (the domain also drives canonical URLs, sitemap and robots) |
+| Featured listings (sample data for now) | `src/data/properties.ts` |
+| Closed deals shown on the map | `src/data/deals.ts` |
+| Built-in articles | `src/data/articles.ts` (more posts can be added in Sanity Studio) |
+| Home page sections | `src/sections/` |
+| Share image for social links | `src/app/opengraph-image.tsx` |
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pages that read Sanity (home, `/blog`, posts, sitemap) refresh every hour, so new posts appear without a redeploy.

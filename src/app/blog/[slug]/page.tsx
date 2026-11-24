@@ -1,3 +1,4 @@
+import { cache } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -31,14 +32,23 @@ const query = `*[_type=="post" && slug.current==$slug][0]{
 
 type Props = { params: Promise<{ slug: string }> };
 
+// Sanity posts not built ahead of time are rendered on first visit, then refreshed hourly.
+export const revalidate = 3600;
+
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-async function load(slug: string) {
+// cache(): metadata and page share one Sanity request per slug.
+const load = cache(async (slug: string) => {
   const local = articles.find((a) => a.slug === slug);
   if (local) return { ...local, body: undefined };
-  const p = await client.fetch<SanityPost | null>(query, { slug });
+  let p: SanityPost | null = null;
+  try {
+    p = await client.fetch<SanityPost | null>(query, { slug });
+  } catch (error) {
+    console.error(`Failed to load Sanity post "${slug}":`, error);
+  }
   if (!p) return null;
   return {
     slug,
@@ -51,16 +61,27 @@ async function load(slug: string) {
     sections: [],
     body: p.body,
   };
-}
+});
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await load(slug);
+  if (!post) return { title: "Article not found", robots: { index: false } };
+  const description = post.excerpt || undefined;
   return {
-    title: post?.title ?? "Article",
-    description: post?.excerpt || undefined,
+    title: post.title,
+    description,
     alternates: { canonical: `/blog/${slug}` },
-    openGraph: post ? { images: [post.image], type: "article" } : undefined,
+    openGraph: {
+      title: post.title,
+      description,
+      url: `/blog/${slug}`,
+      type: "article",
+      publishedTime: post.date || undefined,
+      authors: [profile.name],
+      images: [{ url: post.image, alt: post.title }],
+    },
+    twitter: { card: "summary_large_image", title: post.title, description, images: [post.image] },
   };
 }
 
@@ -69,9 +90,23 @@ export default async function BlogDetails({ params }: Props) {
   const post = await load(slug);
   if (!post) notFound();
   const related = (await getPosts()).filter((p) => p.slug !== slug).slice(0, 3);
+  const url = `${profile.website}/blog/${slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || undefined,
+    image: post.image,
+    datePublished: post.date || undefined,
+    url,
+    mainEntityOfPage: url,
+    author: { "@type": "Person", name: profile.name, url: profile.website },
+    publisher: { "@id": `${profile.website}/#agent` },
+  };
 
   return (
     <main className="min-h-screen bg-ink text-fg">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ScrollProgress />
       <Navbar />
 
@@ -87,7 +122,7 @@ export default async function BlogDetails({ params }: Props) {
             <h1 className="mt-5 text-4xl font-semibold leading-tight sm:text-6xl">{post.title}</h1>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-mute">
               <span className="text-gold">By {profile.name}</span>
-              <span>{formatDate(post.date)}</span>
+              {post.date && <time dateTime={post.date}>{formatDate(post.date)}</time>}
               <span className="flex items-center gap-1"><Clock size={14} /> {post.readMinutes} min read</span>
             </div>
           </AnimatedSection>
@@ -127,7 +162,7 @@ export default async function BlogDetails({ params }: Props) {
 
         <AnimatedSection className="glass card-glow mt-16 flex flex-col items-center gap-6 rounded-[2rem] p-8 text-center sm:flex-row sm:text-left">
           <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-gold">
-            <Image src="/profile.png" alt={profile.name} fill sizes="96px" className="object-cover" />
+            <Image src="/profile.png" alt={`${profile.name}, Realtor`} fill sizes="96px" className="object-cover" />
           </div>
           <div className="flex-1">
             <p className="font-display text-3xl font-semibold">Need help with your next move?</p>

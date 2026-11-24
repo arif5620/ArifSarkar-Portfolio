@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   ],
 
   images: {
+    // Serve AVIF/WebP to browsers that support them: much smaller than the source JPEGs.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

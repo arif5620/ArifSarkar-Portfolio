@@ -16,6 +16,9 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import MobileActionBar from "@/components/MobileActionBar";
 
+// The Insights section reads Sanity posts; refresh them hourly without a redeploy.
+export const revalidate = 3600;
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",

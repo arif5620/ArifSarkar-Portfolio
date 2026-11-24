@@ -22,12 +22,23 @@ export default function Hero() {
   const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
   const [use3D, setUse3D] = useState(false);
 
-  // 3D skyline only where WebGL works and motion isn't reduced; the photo stays as the fallback.
+  // 3D skyline only where WebGL works, motion isn't reduced and the visitor isn't saving data;
+  // the photo stays as the fallback. It loads once the browser is idle so the first paint isn't delayed.
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    if (reduced || saveData) return;
     const gl = document.createElement("canvas").getContext("webgl2");
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- capability check needs the browser
-    setUse3D(!reduced && !!gl);
+    if (!gl) return;
+    gl.getExtension("WEBGL_lose_context")?.loseContext(); // free the probe context right away
+
+    const start = () => setUse3D(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(start, { timeout: 1500 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(start, 300);
+    return () => clearTimeout(id);
   }, []);
 
   // Finder has no backend: it opens a prefilled WhatsApp inquiry.
@@ -95,7 +106,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="glass-dark animate-rise hidden rounded-[2rem] p-6 [animation-delay:.5s] lg:block">
+        <aside className="glass-dark animate-rise hidden rounded-[2rem] p-6 [animation-delay:.5s] lg:block">
           <div className="relative mx-auto h-36 w-36 overflow-hidden rounded-full border-2 border-gold">
             <Image src="/profile.png" alt={`${profile.name}, Realtor in Bangladesh`} fill sizes="144px" className="object-cover" />
           </div>
@@ -116,11 +127,12 @@ export default function Hero() {
           >
             <FaWhatsapp size={18} /> Chat on WhatsApp
           </a>
-        </div>
+        </aside>
       </div>
 
       <form
         onSubmit={onFind}
+        aria-label="Find a property"
         className="glass-dark animate-rise relative mx-auto mb-10 w-[calc(100%-2rem)] max-w-5xl rounded-3xl p-4 [animation-delay:.6s] sm:p-5"
       >
         <div className="mb-4 flex gap-2">
@@ -152,7 +164,7 @@ export default function Hero() {
         </div>
       </form>
 
-      <div className="relative overflow-hidden border-y border-gold/20 bg-black/70 py-5">
+      <div aria-hidden className="relative overflow-hidden border-y border-gold/20 bg-black/70 py-5">
         <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">
           {[...areas, ...areas].map((a, i) => (
             <span key={i} className="flex items-center gap-12 font-display text-2xl text-zinc-400">
