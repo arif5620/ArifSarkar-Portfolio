@@ -11,7 +11,6 @@ import { useIsDark } from "@/lib/theme";
 const City3D = dynamic(() => import("@/components/City3D"), { ssr: false });
 
 const first = "ARIF";
-const last = "SARKAR";
 const badge = "REALTOR · DHAKA · CHATTOGRAM · CUMILLA · ";
 
 function Letters({ word, start }: { word: string; start: number }) {
@@ -112,18 +111,12 @@ export default function Hero() {
             <span className="font-mono text-[10px] uppercase tracking-[3px] text-mute sm:text-xs">Real estate consultant &amp; Realtor</span>
           </p>
           <h1 className="mt-1 font-sans font-extrabold leading-[0.82] tracking-[-0.055em]">
-            <span className="sr-only">Arif Sarkar — Real Estate Consultant &amp; Realtor in Dhaka, Chattogram and Cumilla</span>
+            <span className="sr-only">Arif — Real Estate Consultant &amp; Realtor in Dhaka, Chattogram and Cumilla</span>
             <span
               aria-hidden
-              className="block bg-gradient-to-r from-fg via-fg to-mute-2 bg-clip-text text-[22vw] text-transparent sm:text-[19vw] lg:text-[11.5vw] xl:text-[10.5rem]"
+              className="block bg-gradient-to-r from-fg via-fg to-mute bg-clip-text text-[36vw] text-transparent sm:text-[30vw] lg:text-[22vw] xl:text-[19rem]"
             >
               <Letters word={first} start={0.15} />
-            </span>
-            <span
-              aria-hidden
-              className="block bg-gradient-to-r from-fg via-mute to-mute-2/40 bg-clip-text text-[22vw] text-transparent sm:text-[19vw] lg:ml-[0.18em] lg:text-[11.5vw] xl:text-[10.5rem]"
-            >
-              <Letters word={last} start={0.4} />
             </span>
           </h1>
         </motion.div>
@@ -131,13 +124,13 @@ export default function Hero() {
         {/* Portrait in front of the name */}
         <motion.div
           style={{ y: photoY, x: photoX, rotateY: photoRY }}
-          className="pointer-events-none relative z-20 mx-auto -mt-[16vw] h-[54svh] w-full max-w-[520px] sm:-mt-[12vw] sm:h-[60svh] lg:absolute lg:bottom-0 lg:right-[2%] lg:mt-0 lg:h-[86%] lg:w-[40vw] lg:max-w-[560px]"
+          className="pointer-events-none relative z-20 mx-auto -mt-[11vw] h-[54svh] w-full max-w-[520px] sm:-mt-[12vw] sm:h-[60svh] lg:absolute lg:bottom-0 lg:right-[2%] lg:mt-0 lg:h-[86%] lg:w-[40vw] lg:max-w-[560px]"
         >
           <div className="hero-photo relative h-full w-full [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]">
             <Image
               src="/arif-cutout.webp"
               unoptimized
-              alt="Arif Sarkar, Realtor in Bangladesh, in a blue suit"
+              alt="Arif, Realtor in Bangladesh, in a blue suit"
               fill
               preload
               className="object-contain object-bottom"

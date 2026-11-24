@@ -12,7 +12,7 @@ export default function IntroLoader() {
   return (
     <div className="intro" onClick={() => setSkipped(true)} aria-hidden>
       <p className="intro-name">
-        {["Arif", "Sarkar"].map((word) => (
+        {["Arif"].map((word) => (
           <span key={word}>
             {word.split("").map((ch, i) => (
               <i key={i} style={{ animationDelay: `${0.15 + n++ * 0.05}s` }}>{ch}</i>

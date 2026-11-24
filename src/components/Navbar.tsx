@@ -65,12 +65,12 @@ export default function Navbar() {
           scrolled ? "border-gold/30 bg-ink/85 shadow-2xl shadow-black/40" : "border-line bg-ink/60"
         }`}
       >
-        <Link href="/#home" aria-label="Arif Sarkar, home" className="group flex items-center gap-2.5 text-fg">
+        <Link href="/#home" aria-label="Arif, home" className="group flex items-center gap-2.5 text-fg">
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-fg font-display text-lg font-semibold italic text-ink transition group-hover:bg-gold group-hover:text-black">
             A
           </span>
           <span className="hidden text-sm font-semibold tracking-tight sm:block lg:text-base">
-            Arif Sarkar<span className="text-gold">.</span>
+            Arif<span className="text-gold">.</span>
           </span>
         </Link>
 
