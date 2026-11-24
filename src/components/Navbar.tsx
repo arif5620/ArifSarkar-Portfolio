@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import profile from "@/data/profile";
 
@@ -17,6 +19,22 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [section, setSection] = useState("home");
+  const pathname = usePathname();
+  const onBlog = pathname.startsWith("/blog");
+  const active = onBlog ? "Insights" : navLinks.find((l) => l.href === `/#${section}`)?.name;
+
+  // Highlight the menu item for the section currently in the middle of the screen.
+  useEffect(() => {
+    if (onBlog) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setSection(e.target.id)),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    // Watch every section, so sections without a menu item (FAQ, EMI...) clear the highlight.
+    document.querySelectorAll("main section[id]").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [onBlog]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -51,15 +69,27 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-8 text-sm md:flex">
           {navLinks.map((item) => (
-            <a key={item.name} href={item.href} className="text-soft transition hover:text-gold">
+            <a
+              key={item.name}
+              href={item.href}
+              aria-current={active === item.name ? "true" : undefined}
+              className={`relative py-1 transition-colors hover:text-gold ${active === item.name ? "text-gold" : "text-soft"}`}
+            >
               {item.name}
+              {active === item.name && (
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-x-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                />
+              )}
             </a>
           ))}
         </div>
 
         <a
           href={`tel:${profile.phone}`}
-          className="hidden rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-gold-soft md:block"
+          className="btn-shine hidden rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-gold-soft md:block"
         >
           Call Now
         </a>
@@ -85,7 +115,8 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-lg text-soft hover:text-gold"
+                aria-current={active === item.name ? "true" : undefined}
+                className={`rounded-xl px-4 py-3 text-lg hover:text-gold ${active === item.name ? "bg-gold/10 text-gold" : "text-soft"}`}
               >
                 {item.name}
               </a>

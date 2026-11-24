@@ -32,7 +32,16 @@ function PhotoCard({ img, alt, className = "", sizes, children }: {
 }) {
   return (
     <div className={`group relative overflow-hidden rounded-3xl bg-ink-2 ${className}`}>
-      <Image src={img} alt={alt} fill sizes={sizes} className="object-cover transition duration-1000 group-hover:scale-110" />
+      {/* Photo settles from a slow zoom as it scrolls into view. */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.25 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Image src={img} alt={alt} fill sizes={sizes} className="object-cover transition duration-1000 group-hover:scale-110" />
+      </motion.div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-6 text-white">{children}</div>
     </div>

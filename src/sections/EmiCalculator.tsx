@@ -94,7 +94,7 @@ export default function EmiCalculator() {
               href={waLink(`Hello Arif, I'm looking at a property around ${taka(price)} with about ${downPct}% down payment. Can you help?`)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 rounded-full bg-gold px-8 py-3.5 font-semibold text-black transition hover:bg-gold-soft"
+              className="btn-shine mt-6 rounded-full bg-gold px-8 py-3.5 font-semibold text-black transition hover:bg-gold-soft"
             >
               Find homes in this budget
             </a>

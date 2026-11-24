@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaBed, FaBath, FaRulerCombined, FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import TiltCard from "@/components/TiltCard";
 import SectionHeading from "@/components/SectionHeading";
 import { properties } from "@/data/properties";
@@ -27,17 +28,20 @@ export default function Properties() {
         />
 
         <div className="mt-10 flex justify-center">
-          <div className="flex rounded-full border border-line p-1">
+          <div className="relative z-0 flex rounded-full border border-line p-1">
             {tabs.map((t) => (
               <button
                 key={t.id}
                 type="button"
                 onClick={() => setTab(t.id)}
                 aria-pressed={tab === t.id}
-                className={`rounded-full px-8 py-2.5 text-sm font-semibold transition ${
-                  tab === t.id ? "bg-gold text-black" : "text-soft hover:text-gold"
+                className={`relative rounded-full px-8 py-2.5 text-sm font-semibold transition-colors ${
+                  tab === t.id ? "text-black" : "text-soft hover:text-gold"
                 }`}
               >
+                {tab === t.id && (
+                  <motion.span layoutId="property-tab" className="absolute inset-0 -z-10 rounded-full bg-gold" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
+                )}
                 {t.label}
               </button>
             ))}
@@ -45,48 +49,59 @@ export default function Properties() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((p) => (
-            <TiltCard key={p.id} className="rounded-3xl">
-              <article className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
-                <div className="relative h-60 overflow-hidden bg-ink-2">
-                  <Image
-                    src={p.image}
-                    alt={`${p.title} in ${p.area}`}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
-                    {p.type === "sale" ? "For Sale" : "For Rent"}
-                  </span>
-                  <p className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow">{p.price}</p>
-                </div>
-                <div className="p-6">
-                  <p className="text-xs uppercase tracking-[3px] text-mute-2">{p.kind}</p>
-                  <h3 className="mt-1 text-2xl font-semibold">{p.title}</h3>
-                  <p className="mt-1 text-sm text-mute">{p.area}</p>
+          <AnimatePresence mode="popLayout" initial={false}>
+            {list.map((p, i) => (
+              <motion.div
+                key={p.id}
+                layout
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <TiltCard className="rounded-3xl">
+                  <article className="glass card-glow group overflow-hidden rounded-3xl transition duration-500 hover:shadow-[0_25px_70px_-15px_rgba(201,164,76,.4)]">
+                    <div className="relative h-60 overflow-hidden bg-ink-2">
+                      <Image
+                        src={p.image}
+                        alt={`${p.title} in ${p.area}`}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                      <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
+                        {p.type === "sale" ? "For Sale" : "For Rent"}
+                      </span>
+                      <p className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow">{p.price}</p>
+                    </div>
+                    <div className="p-6">
+                      <p className="text-xs uppercase tracking-[3px] text-mute-2">{p.kind}</p>
+                      <h3 className="mt-1 text-2xl font-semibold">{p.title}</h3>
+                      <p className="mt-1 text-sm text-mute">{p.area}</p>
 
-                  <div className="mt-4 flex gap-5 border-t border-line pt-4 text-sm text-mute">
-                    {p.beds > 0 && (
-                      <span className="flex items-center gap-2"><FaBed aria-hidden /> {p.beds}<span className="sr-only"> bedrooms</span></span>
-                    )}
-                    <span className="flex items-center gap-2"><FaBath aria-hidden /> {p.baths}<span className="sr-only"> bathrooms</span></span>
-                    <span className="flex items-center gap-2"><FaRulerCombined aria-hidden /> {p.size}</span>
-                  </div>
+                      <div className="mt-4 flex gap-5 border-t border-line pt-4 text-sm text-mute">
+                        {p.beds > 0 && (
+                          <span className="flex items-center gap-2"><FaBed aria-hidden /> {p.beds}<span className="sr-only"> bedrooms</span></span>
+                        )}
+                        <span className="flex items-center gap-2"><FaBath aria-hidden /> {p.baths}<span className="sr-only"> bathrooms</span></span>
+                        <span className="flex items-center gap-2"><FaRulerCombined aria-hidden /> {p.size}</span>
+                      </div>
 
-                  <a
-                    href={waLink(`Hello Arif, I'm interested in "${p.title}" in ${p.area} (${p.price}).`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-5 flex items-center justify-center gap-2 rounded-full border border-gold/40 py-3 text-sm font-semibold text-gold transition hover:bg-gold hover:text-black"
-                  >
-                    <FaWhatsapp /> Inquire
-                  </a>
-                </div>
-              </article>
-            </TiltCard>
-          ))}
+                      <a
+                        href={waLink(`Hello Arif, I'm interested in "${p.title}" in ${p.area} (${p.price}).`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-5 flex items-center justify-center gap-2 rounded-full border border-gold/40 py-3 text-sm font-semibold text-gold transition hover:bg-gold hover:text-black"
+                      >
+                        <FaWhatsapp /> Inquire
+                      </a>
+                    </div>
+                  </article>
+                </TiltCard>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         <p className="mt-10 text-center text-mute-2">
