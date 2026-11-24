@@ -145,7 +145,7 @@ export default function Expertise() {
             <Image
               src="/arif-cutout.webp"
               unoptimized
-              alt="Arif Sarkar"
+              alt="Arif"
               fill
               className="object-contain object-bottom"
             />
