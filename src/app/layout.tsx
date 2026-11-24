@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/next";
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-cormorant",
 });
 
@@ -102,10 +103,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
-        {/* Before first paint: skip the intro if it already played this session. */}
+        {/* Before first paint: apply the saved light/dark choice, and skip the intro if it already played this session. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "try{if(sessionStorage.getItem('intro-seen'))document.documentElement.classList.add('intro-seen');sessionStorage.setItem('intro-seen','1')}catch(e){}",
+            __html:
+              "try{var d=document.documentElement,t=localStorage.getItem('theme');if(t==='dark'||t==='light')d.dataset.theme=t;if(sessionStorage.getItem('intro-seen'))d.classList.add('intro-seen');sessionStorage.setItem('intro-seen','1')}catch(e){}",
           }}
         />
       </head>

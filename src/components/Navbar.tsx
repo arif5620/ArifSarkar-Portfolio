@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import profile from "@/data/profile";
+import { ThemeButton, ThemeLamp } from "@/components/ThemeLamp";
 
 const navLinks = [
   { name: "Home", href: "/#home" },
   { name: "About", href: "/#about" },
+  { name: "Expertise", href: "/#expertise" },
   { name: "Properties", href: "/#properties" },
   { name: "Services", href: "/#services" },
   { name: "Insights", href: "/blog" },
@@ -59,30 +61,35 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav
         aria-label="Main"
-        className={`mx-auto mt-3 flex w-[92%] max-w-7xl items-center justify-between rounded-full border px-5 py-3 backdrop-blur-xl transition-all duration-300 lg:px-8 ${
+        className={`mx-auto mt-3 flex w-[92%] max-w-7xl items-center justify-between rounded-full border py-2 pl-2 pr-2 backdrop-blur-xl sm:pr-3 lg:pl-3 transition-all duration-300 ${
           scrolled ? "border-gold/30 bg-ink/85 shadow-2xl shadow-black/40" : "border-line bg-ink/60"
         }`}
       >
-        <Link href="/#home" className="font-display text-xl font-semibold tracking-[3px] text-fg sm:text-2xl">
-          ARIF<span className="text-gold">.</span>
+        <Link href="/#home" aria-label="Arif Sarkar, home" className="group flex items-center gap-2.5 text-fg">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-fg font-display text-lg font-semibold italic text-ink transition group-hover:bg-gold group-hover:text-black">
+            A
+          </span>
+          <span className="hidden text-sm font-semibold tracking-tight sm:block lg:text-base">
+            Arif Sarkar<span className="text-gold">.</span>
+          </span>
         </Link>
 
-        <div className="hidden items-center gap-8 text-sm md:flex">
+        <div className="relative z-0 hidden items-center gap-1 rounded-full border border-line bg-card p-1 text-sm lg:flex">
           {navLinks.map((item) => (
             <a
               key={item.name}
               href={item.href}
               aria-current={active === item.name ? "true" : undefined}
-              className={`relative py-1 transition-colors hover:text-gold ${active === item.name ? "text-gold" : "text-soft"}`}
+              className={`relative rounded-full px-3.5 py-1.5 transition-colors lg:px-4 ${active === item.name ? "text-ink" : "text-soft hover:text-gold"}`}
             >
-              {item.name}
               {active === item.name && (
                 <motion.span
                   layoutId="nav-active"
-                  className="absolute inset-x-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+                  className="absolute inset-0 -z-10 rounded-full bg-fg"
                   transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               )}
+              {item.name}
             </a>
           ))}
         </div>
@@ -94,19 +101,22 @@ export default function Navbar() {
           Call Now
         </a>
 
+        <div className="flex items-center gap-2 lg:hidden">
+        <ThemeButton />
         <button
           type="button"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="z-[9999] flex h-10 w-10 items-center justify-center rounded-full border border-line text-fg md:hidden"
+          className="z-[9999] flex h-10 w-10 items-center justify-center rounded-full border border-line text-fg"
           aria-label={open ? "Close menu" : "Open menu"}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
+        </div>
       </nav>
 
-      <div id="mobile-menu" className={`fixed inset-0 z-[9998] transition-all duration-300 md:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
+      <div id="mobile-menu" className={`fixed inset-0 z-[9998] transition-all duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
         <div className="absolute inset-0 bg-ink/90 backdrop-blur-xl" onClick={() => setOpen(false)} />
         <div className="absolute left-1/2 top-20 w-[90%] max-w-sm -translate-x-1/2 rounded-3xl border border-line bg-ink-2 p-6">
           <div className="flex flex-col gap-2">
@@ -127,6 +137,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <ThemeLamp />
     </header>
   );
 }

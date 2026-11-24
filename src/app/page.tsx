@@ -2,6 +2,9 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import IntroLoader from "@/components/IntroLoader";
 import Hero from "@/sections/Hero";
+import QuickFind from "@/sections/QuickFind";
+import Statement from "@/sections/Statement";
+import Expertise from "@/sections/Expertise";
 import Journey from "@/sections/Journey";
 import About from "@/sections/About";
 import Properties from "@/sections/Properties";
@@ -33,6 +36,9 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <Hero />
+      <QuickFind />
+      <Statement />
+      <Expertise />
       <Journey />
       <About />
       <Properties />

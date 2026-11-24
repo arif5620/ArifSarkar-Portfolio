@@ -1,7 +1,7 @@
 "use client";
 
 import profile, { waLink } from "@/data/profile";
-import SectionHeading from "@/components/SectionHeading";
+import AnimatedSection from "@/components/AnimatedSection";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 
 const field =
@@ -25,11 +25,23 @@ export default function Contact() {
   return (
     <section id="contact" className="bg-ink-2 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading
-          eyebrow="Contact"
-          title="Let's find your property"
-          text="Tell me what you are looking for. I usually reply within a few hours."
-        />
+        <AnimatedSection>
+          <p className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[4px] text-mute">
+            <span className="h-px w-10 bg-gold" /> Contact
+          </p>
+          <h2 className="mt-6 font-sans text-5xl font-semibold leading-[1] tracking-tight sm:text-7xl lg:text-8xl">
+            Looking for a property?
+            <span className="mt-2 block font-display font-medium italic text-gold">Let&apos;s make it happen.</span>
+          </h2>
+          <p className="mt-6 max-w-xl leading-7 text-mute">Tell me what you are looking for. I usually reply within a few hours.</p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="group mt-8 inline-block text-2xl font-medium tracking-tight text-fg sm:text-4xl"
+          >
+            {profile.email}
+            <span className="mt-1 block h-px origin-left scale-x-30 bg-gold transition-transform duration-500 group-hover:scale-x-100" />
+          </a>
+        </AnimatedSection>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-2">
           <div className="space-y-5">

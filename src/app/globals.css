@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Theme follows the visitor's device setting: light ivory + gold, or black + gold. */
+/* Light ivory + gold, or black + gold. Follows the device until the visitor flips the lamp (html[data-theme]). */
 :root {
   --ink: #fbf8f2;
   --ink-2: #f3ede2;
@@ -18,7 +18,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --ink: #050505;
     --ink-2: #0c0c0f;
     --fg: #f5f1e8;
@@ -32,6 +32,21 @@
     --shadow: rgba(201, 164, 76, 0.25);
     color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --ink: #050505;
+  --ink-2: #0c0c0f;
+  --fg: #f5f1e8;
+  --soft: #d4d4d8;
+  --mute: #a1a1aa;
+  --mute-2: #71717a;
+  --line: rgba(255, 255, 255, 0.1);
+  --card: rgba(255, 255, 255, 0.04);
+  --gold: #c9a44c;
+  --gold-soft: #e3c97e;
+  --shadow: rgba(201, 164, 76, 0.25);
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -57,6 +72,7 @@ html {
 
 body {
   background: var(--ink);
+  transition: background-color 0.6s ease, color 0.6s ease;
   color: var(--fg);
   font-family: var(--font-sans);
   overflow-x: hidden;
@@ -66,10 +82,12 @@ section[id] {
   scroll-margin-top: 5rem;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
 }
 
 ::selection {
@@ -83,10 +101,6 @@ h3 {
 
 @keyframes marquee {
   to { transform: translateX(-50%); }
-}
-
-@keyframes float {
-  50% { transform: translateY(-14px); }
 }
 
 @keyframes dash {
@@ -104,11 +118,6 @@ h3 {
 
 @keyframes fade {
   from { opacity: 0; }
-}
-
-@keyframes kenburns {
-  from { transform: scale(1.18); }
-  to { transform: scale(1.04); }
 }
 
 .text-shimmer {
@@ -133,13 +142,6 @@ h3 {
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: 0 10px 40px -20px var(--shadow);
-}
-
-/* Always-dark glass for content over photos. */
-.glass-dark {
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
 }
 
 /* Gold gradient hairline border on any rounded element. */
@@ -193,9 +195,6 @@ details[open]::details-content {
 
 .animate-dash { animation: dash 1s linear infinite; }
 .animate-marquee { animation: marquee 35s linear infinite; }
-.animate-float { animation: float 6s ease-in-out infinite; }
-.animate-rise { animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.animate-kenburns { animation: kenburns 9s ease-out both; }
 .animate-fade { animation: fade 1.6s ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -206,87 +205,132 @@ details[open]::details-content {
   }
 }
 
-/* ---------- Opening intro (IntroLoader) ---------- */
+/* ---------- Opening intro (IntroLoader): name + 0→100 counter, then the curtain lifts ---------- */
+@property --pct {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
 .intro {
   position: fixed;
   inset: 0;
   z-index: 100;
   cursor: pointer;
-  animation: intro-gone 0s linear 3.2s forwards;
+  background: var(--ink);
+  color: var(--fg);
+  animation:
+    intro-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 2.2s forwards,
+    intro-gone 0s linear 3.1s forwards;
 }
 html.intro-seen .intro { display: none; }
-.intro-panel {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 50.5%;
-  background: #000;
-  animation: 1s cubic-bezier(0.76, 0, 0.24, 1) 2.3s forwards;
-}
-.intro-top { top: 0; animation-name: intro-up; }
-.intro-bottom { bottom: 0; animation-name: intro-down; }
-.intro-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: intro-fade-out 0.5s ease 2.1s forwards;
-}
-.intro-skyline { width: min(70vw, 340px); overflow: visible; }
-.intro-line {
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-  animation: intro-draw 1.4s ease-in-out forwards;
-  filter: drop-shadow(0 0 6px rgba(227, 201, 126, 0.8));
-}
-.intro-fill { opacity: 0; animation: intro-fade-in 0.8s ease 1s forwards; }
 .intro-name {
-  margin-top: 1.25rem;
+  position: absolute;
+  left: 6vw;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 0.35em;
-  overflow: hidden;
-  font-family: var(--font-display);
+  flex-wrap: wrap;
+  gap: 0 0.25em;
+  font-family: var(--font-sans);
   font-weight: 600;
-  font-size: clamp(3.5rem, 12vw, 7rem);
-  line-height: 1;
+  font-size: clamp(3rem, 11vw, 9rem);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
 }
-.intro-name span {
+.intro-name > span { display: inline-flex; overflow: hidden; padding-bottom: 0.08em; }
+.intro-name i {
+  font-style: normal;
   display: inline-block;
-  transform: translateY(110%);
-  background: linear-gradient(90deg, #c9a44c, #f8e7b0, #c9a44c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: intro-letter 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.intro-rule {
-  margin-top: 1rem;
-  height: 1px;
-  width: 12rem;
-  transform: scaleX(0);
-  background: linear-gradient(90deg, transparent, #c9a44c, transparent);
-  animation: intro-rule 0.9s ease 1.2s forwards;
+  transform: translateY(105%);
+  animation: intro-letter 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .intro-tag {
-  margin-top: 1rem;
+  position: absolute;
+  left: 6vw;
+  bottom: 8vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.7rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #a1a1aa;
+  color: var(--mute);
   opacity: 0;
-  animation: intro-tag 1s ease 1.3s forwards;
+  animation: intro-fade-in 0.8s ease 0.6s forwards;
 }
-@keyframes intro-draw { to { stroke-dashoffset: 0; } }
-@keyframes intro-fade-in { to { opacity: 1; } }
-@keyframes intro-fade-out { to { opacity: 0; transform: scale(1.06); } }
+.intro-count {
+  position: absolute;
+  right: 6vw;
+  bottom: 6vh;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 1;
+  color: var(--gold);
+  counter-reset: pct var(--pct);
+  animation: intro-count 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s forwards;
+}
+.intro-count::after { content: counter(pct); }
+.intro-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+  animation: intro-bar 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s forwards;
+}
 @keyframes intro-letter { to { transform: none; } }
-@keyframes intro-rule { to { transform: scaleX(1); } }
-@keyframes intro-tag { to { opacity: 1; letter-spacing: 0.45em; } }
-@keyframes intro-up { to { transform: translateY(-100%); } }
-@keyframes intro-down { to { transform: translateY(100%); } }
+@keyframes intro-fade-in { to { opacity: 1; } }
+@keyframes intro-count { to { --pct: 100; } }
+@keyframes intro-bar { to { transform: none; } }
+@keyframes intro-lift { to { transform: translateY(-100%); } }
 @keyframes intro-gone { to { visibility: hidden; pointer-events: none; } }
 @media (prefers-reduced-motion: reduce) {
   .intro { display: none; }
 }
+
+/* ---------- Hero entrance: waits for the intro on a first visit ---------- */
+html:not(.intro-seen) { --intro-delay: 2.35s; }
+.hero-in {
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--intro-delay, 0s) + var(--d, 0s));
+}
+.hero-letter {
+  display: inline-block;
+  animation: hero-letter 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--intro-delay, 0s) + var(--d, 0s));
+}
+.hero-photo {
+  animation: hero-photo 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--intro-delay, 0s) + 0.25s);
+}
+@keyframes hero-letter {
+  from { transform: translateY(105%) rotate(4deg); }
+  to { transform: none; }
+}
+@keyframes hero-photo {
+  from { opacity: 0; transform: translateY(60px) scale(0.96); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spin 22s linear infinite; }
+
+@keyframes scroll-cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.animate-scroll-cue { animation: scroll-cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+/* Hanging lamp (theme switch) swings when pulled. */
+@keyframes lamp-swing {
+  0% { transform: rotate(0); }
+  20% { transform: rotate(9deg); }
+  45% { transform: rotate(-6deg); }
+  70% { transform: rotate(3deg); }
+  100% { transform: rotate(0); }
+}
+.lamp-swing { animation: lamp-swing 1.4s ease-out; }
