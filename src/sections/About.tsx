@@ -20,10 +20,10 @@ export default function About() {
         <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
           <TiltCard className="card-glow relative mx-auto w-full max-w-md overflow-hidden rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(201,164,76,.35)]">
             <Image
-              src="/profile.png"
-              alt={`${profile.name}, Realtor in Dhaka`}
-              width={600}
-              height={700}
+              src="/arif-about.jpg"
+              alt={`${profile.name}, Realtor in Dhaka, in front of apartment project photos`}
+              width={689}
+              height={918}
               className="h-auto w-full bg-ink-2 object-cover"
             />
           </TiltCard>

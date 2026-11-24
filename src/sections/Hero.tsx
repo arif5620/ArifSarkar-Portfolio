@@ -124,13 +124,13 @@ export default function Hero() {
         {/* Portrait in front of the name */}
         <motion.div
           style={{ y: photoY, x: photoX, rotateY: photoRY }}
-          className="pointer-events-none relative z-20 mx-auto -mt-[11vw] h-[54svh] w-full max-w-[520px] sm:-mt-[12vw] sm:h-[60svh] lg:absolute lg:bottom-0 lg:right-[2%] lg:mt-0 lg:h-[86%] lg:w-[40vw] lg:max-w-[560px]"
+          className="pointer-events-none relative z-20 mx-auto -mt-[6vw] h-[54svh] w-full max-w-[520px] sm:-mt-[12vw] sm:h-[60svh] lg:absolute lg:bottom-0 lg:right-[2%] lg:mt-0 lg:h-[86%] lg:w-[40vw] lg:max-w-[560px]"
         >
           <div className="hero-photo relative h-full w-full [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]">
             <Image
               src="/arif-cutout.webp"
               unoptimized
-              alt="Arif, Realtor in Bangladesh, in a blue suit"
+              alt="Arif, Realtor in Bangladesh, in a navy suit"
               fill
               preload
               className="object-contain object-bottom"
