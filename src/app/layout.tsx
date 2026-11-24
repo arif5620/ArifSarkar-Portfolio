@@ -49,6 +49,8 @@ export const metadata: Metadata = {
   authors: [{ name: profile.name, url: profile.website }],
   creator: profile.name,
   category: "Real Estate",
+  // Google Search Console ownership (also verified by public/google0410effcd4624537.html).
+  verification: { google: "IV7ofvZRcwgd_WFCUhswmhfGNpBdkIzFCS0bVssLXe0" },
 };
 
 // Browser UI colour matches the page background in each theme.
@@ -59,11 +61,11 @@ export const viewport: Viewport = {
   ],
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
+const agent = {
   "@type": "RealEstateAgent",
   "@id": `${profile.website}/#agent`,
   name: profile.name,
+  alternateName: "Arif Sarkar",
   description,
   url: profile.website,
   image: `${profile.website}/profile.png`,
@@ -72,6 +74,23 @@ const jsonLd = {
   address: { "@type": "PostalAddress", addressLocality: "Dhaka", addressCountry: "BD" },
   areaServed: ["Dhaka", "Chattogram", "Cumilla"],
   sameAs: Object.values(profile.social),
+};
+
+// WebSite entity tells Google the site's name for search results.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    agent,
+    {
+      "@type": "WebSite",
+      "@id": `${profile.website}/#website`,
+      url: profile.website,
+      name: "Arif Sarkar",
+      alternateName: ["Arif — Real Estate", "arifsarkar.com"],
+      inLanguage: "en-BD",
+      publisher: { "@id": `${profile.website}/#agent` },
+    },
+  ],
 };
 
 export default function RootLayout({
