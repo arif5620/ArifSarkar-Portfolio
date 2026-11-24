@@ -18,7 +18,7 @@ export default function Contact() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const text = `Hello Arif, I'm ${f.get("name")} (${f.get("phone")}). I want to ${f.get("interest")}. ${f.get("message") ?? ""}`;
+    const text = `Hello Arif, I'm ${f.get("name")} (${f.get("phone")}). I want to ${f.get("interest")}. ${f.get("message") ?? ""}`.trim();
     window.open(waLink(text), "_blank", "noopener,noreferrer");
   };
 
@@ -62,15 +62,15 @@ export default function Contact() {
           </div>
 
           <form onSubmit={onSubmit} className="glass card-glow space-y-5 rounded-3xl p-6 sm:p-8">
-            <input name="name" required placeholder="Your name" className={field} />
-            <input name="phone" required type="tel" placeholder="Phone / WhatsApp number" className={field} />
-            <select name="interest" className={field} defaultValue="buy a property">
+            <input name="name" required autoComplete="name" aria-label="Your name" placeholder="Your name" className={field} />
+            <input name="phone" required type="tel" autoComplete="tel" aria-label="Phone or WhatsApp number" placeholder="Phone / WhatsApp number" className={field} />
+            <select name="interest" aria-label="What do you want to do?" className={field} defaultValue="buy a property">
               <option value="buy a property">I want to buy</option>
               <option value="sell my property">I want to sell</option>
               <option value="rent a property">I want to rent</option>
               <option value="list my property for rent">I want to list a rental</option>
             </select>
-            <textarea name="message" rows={5} placeholder="Area, budget, size, any details..." className={`${field} resize-none`} />
+            <textarea name="message" rows={5} aria-label="Details" placeholder="Area, budget, size, any details..." className={`${field} resize-none`} />
             <button type="submit" className="w-full rounded-full bg-gold py-4 font-semibold text-black transition hover:bg-gold-soft">
               Send Inquiry via WhatsApp
             </button>

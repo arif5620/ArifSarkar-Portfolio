@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import profile from "@/data/profile";
@@ -41,10 +41,19 @@ export const metadata: Metadata = {
     siteName: "Arif — Real Estate",
     locale: "en_BD",
     type: "website",
-    images: ["/profile.png"],
+    images: [{ url: "/profile.png", alt: `${profile.name}, Realtor in Bangladesh` }],
   },
   twitter: { card: "summary_large_image", title, description, images: ["/profile.png"] },
   robots: { index: true, follow: true },
+  authors: [{ name: profile.name, url: profile.website }],
+  creator: profile.name,
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf8f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+  ],
 };
 
 const jsonLd = {

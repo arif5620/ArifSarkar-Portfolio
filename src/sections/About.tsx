@@ -13,7 +13,7 @@ const points = [
 
 export default function About() {
   return (
-    <section id="about" className="bg-ink-2 py-20 lg:py-28">
+    <section id="about" className="overflow-hidden bg-ink-2 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading eyebrow="About Me" title="A Realtor you can trust" />
 

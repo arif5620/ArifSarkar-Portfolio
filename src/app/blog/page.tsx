@@ -11,7 +11,11 @@ export const metadata: Metadata = {
   title: "Real Estate Insights",
   description: "Guides on buying, selling, renting and investing in property in Dhaka, Chattogram and Cumilla.",
   alternates: { canonical: "/blog" },
+  openGraph: { url: "/blog" },
 };
+
+// Re-check Sanity at most hourly so new CMS posts show up without a redeploy.
+export const revalidate = 3600;
 
 export default async function BlogPage() {
   const posts = await getPosts();

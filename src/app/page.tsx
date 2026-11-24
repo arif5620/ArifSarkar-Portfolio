@@ -16,6 +16,9 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import MobileActionBar from "@/components/MobileActionBar";
 
+// The Insights section reads Sanity; re-check it at most hourly.
+export const revalidate = 3600;
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",

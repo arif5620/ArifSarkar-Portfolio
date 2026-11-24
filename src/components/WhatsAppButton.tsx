@@ -1,5 +1,3 @@
-"use client";
-
 import { FaWhatsapp } from "react-icons/fa";
 import { waLink } from "@/data/profile";
 

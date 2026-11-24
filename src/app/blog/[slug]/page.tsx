@@ -1,3 +1,4 @@
+import { cache } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -20,30 +21,40 @@ import { PostCardView } from "@/components/PostGrid";
 type SanityPost = {
   title: string;
   publishedAt?: string;
+  excerpt?: string;
   category?: string;
   mainImage?: Parameters<typeof urlFor>[0];
   body?: Parameters<typeof PortableText>[0]["value"];
 };
 
 const query = `*[_type=="post" && slug.current==$slug][0]{
-  title, publishedAt, mainImage, body, "category": categories[0]->title
+  title, publishedAt, excerpt, mainImage, body, "category": categories[0]->title
 }`;
 
 type Props = { params: Promise<{ slug: string }> };
+
+// Re-check Sanity at most hourly so new CMS posts show up without a redeploy.
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-async function load(slug: string) {
+// Cached per request: generateMetadata and the page share one Sanity fetch.
+const load = cache(async (slug: string) => {
   const local = articles.find((a) => a.slug === slug);
   if (local) return { ...local, body: undefined };
-  const p = await client.fetch<SanityPost | null>(query, { slug });
+  let p: SanityPost | null = null;
+  try {
+    p = await client.fetch<SanityPost | null>(query, { slug });
+  } catch (error) {
+    console.error(`Failed to load Sanity post "${slug}":`, error);
+  }
   if (!p) return null;
   return {
     slug,
     title: p.title,
-    excerpt: "",
+    excerpt: p.excerpt ?? "",
     category: p.category ?? "Insights",
     date: p.publishedAt ?? "",
     readMinutes: 5,
@@ -51,16 +62,27 @@ async function load(slug: string) {
     sections: [],
     body: p.body,
   };
-}
+});
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await load(slug);
+  if (!post) return { title: "Article not found", robots: { index: false } };
+  const description = post.excerpt || undefined;
   return {
-    title: post?.title ?? "Article",
-    description: post?.excerpt || undefined,
+    title: post.title,
+    description,
     alternates: { canonical: `/blog/${slug}` },
-    openGraph: post ? { images: [post.image], type: "article" } : undefined,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: `/blog/${slug}`,
+      images: [post.image],
+      publishedTime: post.date || undefined,
+      authors: [profile.name],
+    },
+    twitter: { card: "summary_large_image", title: post.title, description, images: [post.image] },
   };
 }
 
@@ -69,9 +91,20 @@ export default async function BlogDetails({ params }: Props) {
   const post = await load(slug);
   if (!post) notFound();
   const related = (await getPosts()).filter((p) => p.slug !== slug).slice(0, 3);
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || undefined,
+    image: post.image,
+    datePublished: post.date || undefined,
+    author: { "@type": "Person", name: profile.name, url: profile.website },
+    mainEntityOfPage: `${profile.website}/blog/${slug}`,
+  };
 
   return (
     <main className="min-h-screen bg-ink text-fg">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <ScrollProgress />
       <Navbar />
 

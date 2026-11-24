@@ -22,12 +22,20 @@ export default function Hero() {
   const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
   const [use3D, setUse3D] = useState(false);
 
-  // 3D skyline only where WebGL works and motion isn't reduced; the photo stays as the fallback.
+  // 3D skyline only where WebGL works, motion isn't reduced and the visitor isn't saving data;
+  // the photo stays as the fallback. It loads once the browser is idle so it never competes
+  // with the hero photo and headline for first paint.
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const gl = document.createElement("canvas").getContext("webgl2");
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- capability check needs the browser
-    setUse3D(!reduced && !!gl);
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    if (reduced || saveData || !document.createElement("canvas").getContext("webgl2")) return;
+    const start = () => setUse3D(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(start, { timeout: 2500 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(start, 1200);
+    return () => clearTimeout(t);
   }, []);
 
   // Finder has no backend: it opens a prefilled WhatsApp inquiry.
@@ -152,7 +160,7 @@ export default function Hero() {
         </div>
       </form>
 
-      <div className="relative overflow-hidden border-y border-gold/20 bg-black/70 py-5">
+      <div className="relative overflow-hidden border-y border-gold/20 bg-black/70 py-5" aria-hidden>
         <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">
           {[...areas, ...areas].map((a, i) => (
             <span key={i} className="flex items-center gap-12 font-display text-2xl text-zinc-400">

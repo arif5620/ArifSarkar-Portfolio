@@ -51,6 +51,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Stops animated/tilted elements from causing sideways scroll on phones (iOS ignores it on body). */
+  overflow-x: clip;
 }
 
 body {
@@ -236,6 +238,9 @@ html.intro-seen .intro { display: none; }
 }
 .intro-tag {
   margin-top: 1rem;
+  max-width: 90vw;
+  padding: 0 1rem;
+  text-align: center;
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -248,7 +253,7 @@ html.intro-seen .intro { display: none; }
 @keyframes intro-fade-out { to { opacity: 0; transform: scale(1.06); } }
 @keyframes intro-letter { to { transform: none; } }
 @keyframes intro-rule { to { transform: scaleX(1); } }
-@keyframes intro-tag { to { opacity: 1; letter-spacing: 0.45em; } }
+@keyframes intro-tag { to { opacity: 1; letter-spacing: min(0.45em, 1.2vw); } }
 @keyframes intro-up { to { transform: translateY(-100%); } }
 @keyframes intro-down { to { transform: translateY(100%); } }
 @keyframes intro-gone { to { visibility: hidden; pointer-events: none; } }

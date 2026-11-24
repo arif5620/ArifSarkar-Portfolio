@@ -31,7 +31,9 @@ export default function Properties() {
             {tabs.map((t) => (
               <button
                 key={t.id}
+                type="button"
                 onClick={() => setTab(t.id)}
+                aria-pressed={tab === t.id}
                 className={`rounded-full px-8 py-2.5 text-sm font-semibold transition ${
                   tab === t.id ? "bg-gold text-black" : "text-soft hover:text-gold"
                 }`}
@@ -58,7 +60,7 @@ export default function Properties() {
                 <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-black">
                   {p.type === "sale" ? "For Sale" : "For Rent"}
                 </span>
-                <p className="absolute bottom-4 left-4 text-xl font-semibold text-fg drop-shadow">{p.price}</p>
+                <p className="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow">{p.price}</p>
               </div>
               <div className="p-6">
                 <p className="text-xs uppercase tracking-[3px] text-mute-2">{p.kind}</p>
