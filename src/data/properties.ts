@@ -13,8 +13,6 @@ export type Property = {
 
 const unsplash = (id: string) => `https://images.unsplash.com/photo-${id}?w=1200&q=80&auto=format&fit=crop`;
 
-export const heroImage = unsplash("1748063578185-3d68121b11ff");
-
 // SAMPLE LISTINGS with stock photos (Unsplash) — replace with real inventory.
 export const properties: Property[] = [
   { id: "gulshan-2-apt", type: "sale", title: "Luxury Apartment", area: "Gulshan 2, Dhaka", price: "৳ 3.5 Crore", beds: 4, baths: 4, size: "2,800 sqft", kind: "Apartment", image: unsplash("1545169734-58a4a6353ccb") },
