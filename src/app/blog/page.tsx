@@ -7,11 +7,19 @@ import ScrollProgress from "@/components/ScrollProgress";
 import PostGrid from "@/components/PostGrid";
 import { getPosts } from "@/data/posts";
 
+const title = "Real Estate Insights";
+const description = "Guides on buying, selling, renting and investing in property in Dhaka, Chattogram and Cumilla.";
+
 export const metadata: Metadata = {
-  title: "Real Estate Insights",
-  description: "Guides on buying, selling, renting and investing in property in Dhaka, Chattogram and Cumilla.",
+  title,
+  description,
   alternates: { canonical: "/blog" },
+  openGraph: { title, description, url: "/blog", siteName: "Arif — Real Estate", locale: "en_BD", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
+
+// Picks up new Sanity posts hourly without a redeploy.
+export const revalidate = 3600;
 
 export default async function BlogPage() {
   const posts = await getPosts();

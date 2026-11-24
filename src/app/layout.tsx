@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import profile from "@/data/profile";
@@ -41,15 +41,27 @@ export const metadata: Metadata = {
     siteName: "Arif — Real Estate",
     locale: "en_BD",
     type: "website",
-    images: ["/profile.png"],
+    // The share image comes from app/opengraph-image.tsx.
   },
-  twitter: { card: "summary_large_image", title, description, images: ["/profile.png"] },
+  twitter: { card: "summary_large_image", title, description },
   robots: { index: true, follow: true },
+  authors: [{ name: profile.name, url: profile.website }],
+  creator: profile.name,
+  category: "Real Estate",
+};
+
+// Browser UI colour matches the page background in each theme.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf8f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+  ],
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "RealEstateAgent",
+  "@id": `${profile.website}/#agent`,
   name: profile.name,
   description,
   url: profile.website,

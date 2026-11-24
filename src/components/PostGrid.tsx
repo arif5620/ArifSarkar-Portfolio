@@ -37,7 +37,7 @@ export function PostCardView({ post, index = 0 }: { post: PostCard; index?: numb
         </div>
         <div className="p-6">
           <div className="flex items-center gap-3 text-xs text-mute-2">
-            <span>{formatDate(post.date)}</span>
+            {post.date && <time dateTime={post.date}>{formatDate(post.date)}</time>}
             <span className="flex items-center gap-1"><Clock size={13} /> {post.readMinutes} min read</span>
           </div>
           <h3 className="mt-3 text-2xl font-semibold leading-snug transition group-hover:text-gold">{post.title}</h3>
@@ -69,6 +69,7 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
+            type="search"
             placeholder="Search articles..."
             aria-label="Search articles"
             className="glass w-full rounded-full py-4 pl-14 pr-5 text-fg outline-none transition placeholder:text-mute-2 focus:border-gold"
@@ -80,7 +81,9 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
         {categories.map((c) => (
           <button
             key={c}
+            type="button"
             onClick={() => setCategory(c)}
+            aria-pressed={c === category}
             className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
               c === category ? "bg-gold text-black" : "glass text-soft hover:text-gold"
             }`}

@@ -60,6 +60,7 @@ const bubblePos: Record<string, string> = {
 export default function ServiceAreas() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
   const pick = (i: number) => { setActive(i); setPaused(true); };
 
   useEffect(() => {
@@ -69,12 +70,10 @@ export default function ServiceAreas() {
   }, [paused]);
 
   const city = cities[active];
-  const [hovered, setHovered] = useState<number | null>(null);
   const deal = hovered === null ? null : shownDeals[hovered];
 
   return (
     <section id="areas" className="relative overflow-hidden bg-ink-2 py-20 lg:py-28">
-
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Where I Work"
@@ -266,7 +265,7 @@ export default function ServiceAreas() {
                   active === i ? "card-glow scale-[1.02] border-gold/40 shadow-[0_20px_60px_-20px_rgba(201,164,76,.5)]" : "opacity-60 hover:opacity-100"
                 }`}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                   <h3 className="text-3xl font-semibold">{c.name}</h3>
                   <span className="text-xs uppercase tracking-[3px] text-gold">{c.tag}</span>
                 </div>
