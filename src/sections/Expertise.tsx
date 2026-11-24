@@ -143,9 +143,9 @@ export default function Expertise() {
           <div aria-hidden className="absolute inset-x-[25%] bottom-[10%] top-[25%] z-[3] rounded-full bg-gold/20 blur-3xl" />
           <div className="absolute inset-x-0 bottom-0 z-20 mx-auto h-[92%] w-[70%] max-w-[420px] [mask-image:linear-gradient(to_bottom,#000_72%,transparent)]">
             <Image
-              src="/arif-cutout.webp"
+              src="/arif-cutout-2.webp"
               unoptimized
-              alt="Arif"
+              alt="Arif in a grey suit"
               fill
               className="object-contain object-bottom"
             />
