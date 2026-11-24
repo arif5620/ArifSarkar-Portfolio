@@ -5,6 +5,5 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/", disallow: "/studio" },
     sitemap: `${profile.website}/sitemap.xml`,
-    host: profile.website,
   };
 }
