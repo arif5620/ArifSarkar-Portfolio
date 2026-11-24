@@ -71,7 +71,7 @@ export default function Contact() {
               <option value="list my property for rent">I want to list a rental</option>
             </select>
             <textarea name="message" aria-label="Details" rows={5} placeholder="Area, budget, size, any details..." className={`${field} resize-none`} />
-            <button type="submit" className="w-full rounded-full bg-gold py-4 font-semibold text-black transition hover:bg-gold-soft">
+            <button type="submit" className="btn-shine w-full rounded-full bg-gold py-4 font-semibold text-black transition hover:bg-gold-soft">
               Send Inquiry via WhatsApp
             </button>
           </form>

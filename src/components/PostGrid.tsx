@@ -84,10 +84,13 @@ export default function PostGrid({ posts }: { posts: PostCard[] }) {
             type="button"
             onClick={() => setCategory(c)}
             aria-pressed={c === category}
-            className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
-              c === category ? "bg-gold text-black" : "glass text-soft hover:text-gold"
+            className={`relative z-0 rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+              c === category ? "text-black" : "glass text-soft hover:text-gold"
             }`}
           >
+            {c === category && (
+              <motion.span layoutId="post-category" className="absolute inset-0 -z-10 rounded-full bg-gold" transition={{ type: "spring", stiffness: 420, damping: 34 }} />
+            )}
             {c}
           </button>
         ))}

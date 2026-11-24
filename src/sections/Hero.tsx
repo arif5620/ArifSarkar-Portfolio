@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FaPhoneAlt, FaWhatsapp, FaSearch, FaCheckCircle } from "react-icons/fa";
 import profile, { waLink } from "@/data/profile";
@@ -14,6 +15,9 @@ const areas = ["Gulshan", "Banani", "Bashundhara R/A", "Uttara", "Dhanmondi", "P
 const goals = ["Buy", "Rent", "Sell"] as const;
 const kinds = ["Apartment", "Duplex / House", "Land / Plot", "Commercial"];
 
+// Shared spring for the sliding gold "pill" behind the selected tab.
+const pill = { type: "spring", stiffness: 420, damping: 34 } as const;
+
 const select =
   "w-full appearance-none rounded-xl border border-white/15 bg-black/50 px-4 py-3.5 text-sm text-white outline-none transition focus:border-gold";
 
@@ -21,6 +25,12 @@ const select =
 export default function Hero() {
   const [goal, setGoal] = useState<(typeof goals)[number]>("Buy");
   const [use3D, setUse3D] = useState(false);
+
+  // As you scroll past the hero, the headline drifts up and fades for a sense of depth.
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   // 3D skyline only where WebGL works, motion isn't reduced and the visitor isn't saving data;
   // the photo stays as the fallback. It loads once the browser is idle so the first paint isn't delayed.
@@ -50,7 +60,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black text-white">
+    <section ref={ref} id="home" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-black text-white">
       <Image
         src={heroImage}
         alt="Luxury home in Bangladesh at dusk"
@@ -68,7 +78,10 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-black/45 lg:hidden" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
 
-      <div className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-4 pb-10 pt-32 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:pt-36">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-12 px-4 pb-10 pt-32 sm:px-6 lg:grid-cols-[1.3fr_0.7fr] lg:pt-36"
+      >
         <div>
           <p className="glass-dark animate-rise inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[4px] text-gold-soft">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" /> {profile.title}
@@ -93,7 +106,7 @@ export default function Hero() {
           <div className="animate-rise mt-8 flex flex-wrap gap-4 [animation-delay:.4s]">
             <a
               href="#properties"
-              className="rounded-full bg-gold px-8 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(201,164,76,.45)] transition hover:scale-105 hover:bg-gold-soft"
+              className="btn-shine rounded-full bg-gold px-8 py-3.5 font-semibold text-black shadow-[0_0_40px_rgba(201,164,76,.45)] transition hover:scale-105 hover:bg-gold-soft"
             >
               Explore Properties
             </a>
@@ -128,24 +141,25 @@ export default function Hero() {
             <FaWhatsapp size={18} /> Chat on WhatsApp
           </a>
         </aside>
-      </div>
+      </motion.div>
 
       <form
         onSubmit={onFind}
         aria-label="Find a property"
         className="glass-dark animate-rise relative mx-auto mb-10 w-[calc(100%-2rem)] max-w-5xl rounded-3xl p-4 [animation-delay:.6s] sm:p-5"
       >
-        <div className="mb-4 flex gap-2">
+        <div className="relative z-0 mb-4 flex gap-2">
           {goals.map((g) => (
             <button
               key={g}
               type="button"
               onClick={() => setGoal(g)}
               aria-pressed={goal === g}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
-                goal === g ? "bg-gold text-black" : "text-zinc-300 hover:text-gold-soft"
+              className={`relative rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                goal === g ? "text-black" : "text-zinc-300 hover:text-gold-soft"
               }`}
             >
+              {goal === g && <motion.span layoutId="hero-goal" className="absolute inset-0 -z-10 rounded-full bg-gold" transition={pill} />}
               {g}
             </button>
           ))}
@@ -158,7 +172,7 @@ export default function Hero() {
             {kinds.map((k) => <option key={k}>{k}</option>)}
           </select>
           <input name="budget" aria-label="Budget" placeholder="Budget (e.g. ৳ 1.5 Crore)" className={`${select} placeholder:text-zinc-400`} />
-          <button type="submit" className="flex items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 font-semibold text-black transition hover:bg-gold-soft">
+          <button type="submit" className="btn-shine flex items-center justify-center gap-2 rounded-xl bg-gold px-7 py-3.5 font-semibold text-black transition hover:bg-gold-soft">
             <FaSearch /> Find
           </button>
         </div>
