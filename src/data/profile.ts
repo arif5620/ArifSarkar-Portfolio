@@ -16,7 +16,7 @@ const profile = {
 
   location: "Dhaka · Chattogram · Cumilla",
 
-  website: "https://arifsarkar.com",
+  website: "https://www.arifsarkar.com",
 
   social: {
     facebook: "https://www.facebook.com/arifsarkarofficial.1/",
