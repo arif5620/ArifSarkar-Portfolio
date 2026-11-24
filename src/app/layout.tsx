@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import profile from "@/data/profile";
 import MotionProvider from "@/components/MotionProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -114,6 +115,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <MotionProvider>{children}</MotionProvider>
+        {/* Visitor stats in the Vercel dashboard (Analytics tab). */}
+        <Analytics />
       </body>
     </html>
   );
